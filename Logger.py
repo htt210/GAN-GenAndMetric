@@ -2,7 +2,7 @@ import torch
 import torch.autograd as ag
 import matplotlib
 import numpy as np
-# matplotlib.use('Agg')
+matplotlib.use('Agg')
 from matplotlib import pyplot as plt
 from matplotlib import cm
 
@@ -233,7 +233,6 @@ def compute_extrema(D: Discriminator, xs, noise=None, noise_range=5, noise_step=
         else:
             gradient = noise
         fx_range = noise_range * gradient / gradient.norm() + ones * fx  # n_range x d_x matrix
-        print('fx_range.size', fx_range.size())
         score_range = D(fx_range)
         scores.append(score_range.data.cpu().numpy())
         grad_norms.append(gradient.norm().item())

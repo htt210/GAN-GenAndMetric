@@ -27,7 +27,7 @@ if __name__ == '__main__':
     parser.add_argument('-ng', type=int, default=1, help='number of G iterations per GAN iteration')
     parser.add_argument('-gp_weight', type=float, default=10., help='weight of grad pen')
     parser.add_argument('-gp_center', type=float, default=0., help='grad pen center')
-    parser.add_argument('-gp_inter', type=float, default=None,
+    parser.add_argument('-gp_inter', type=float, default=1.,
                         help='grad pen interpolation: 0 | 1 | None <=> on fake | on real | random')
     parser.add_argument('-optimizer', type=str, default='adam', help='optimizer: adam | sgd')
     parser.add_argument('-momentum', type=float, default=0.0, help='momentum for sgd')
