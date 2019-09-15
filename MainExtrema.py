@@ -4,9 +4,9 @@ import argparse
 import os
 import datetime
 
-seed = 37
-torch.manual_seed(seed)
-random.seed(seed)
+#seed = 37
+#torch.manual_seed(seed)
+#random.seed(seed)
 
 from Datasets import *
 from Discriminators import *
@@ -15,7 +15,7 @@ from GANs import *
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('-loss', type=str, default='gan', help='loss function: gan | wgan')
+    parser.add_argument('-loss', type=str, default='wgan', help='loss function: gan | wgan')
     parser.add_argument('-arch', type=str, default='mlp', help='architecture: mlp | dcgan')
     parser.add_argument('-dataset', type=str, default='mnist',
                         help='dataset: mnist | celeba | 8Gaussian | 25Gaussian | Swissroll')
@@ -23,11 +23,11 @@ if __name__ == '__main__':
     parser.add_argument('-nlayer', type=int, default=3, help='number of layer in MLP')
     parser.add_argument('-lrd', type=float, default=3e-4, help='learning rate for D')
     parser.add_argument('-lrg', type=float, default=3e-4, help='learning rate for G')
-    parser.add_argument('-nd', type=int, default=1, help='number of D iterations per GAN iteration')
+    parser.add_argument('-nd', type=int, default=5, help='number of D iterations per GAN iteration')
     parser.add_argument('-ng', type=int, default=1, help='number of G iterations per GAN iteration')
     parser.add_argument('-gp_weight', type=float, default=10., help='weight of grad pen')
-    parser.add_argument('-gp_center', type=float, default=0., help='grad pen center')
-    parser.add_argument('-gp_inter', type=float, default=1.,
+    parser.add_argument('-gp_center', type=float, default=1., help='grad pen center')
+    parser.add_argument('-gp_inter', type=float, default=None,
                         help='grad pen interpolation: 0 | 1 | None <=> on fake | on real | random')
     parser.add_argument('-optimizer', type=str, default='adam', help='optimizer: adam | sgd')
     parser.add_argument('-momentum', type=float, default=0.0, help='momentum for sgd')
@@ -39,7 +39,7 @@ if __name__ == '__main__':
     parser.add_argument('-noise_dim', type=int, default=50, help='dimensionality of noise distribution')
 
     parser.add_argument('-niters', type=int, default=200001, help='number of training iteration')
-    parser.add_argument('-log_interval', type=int, default=1000, help='log interval')
+    parser.add_argument('-log_interval', type=int, default=5000, help='log interval')
     parser.add_argument('-batch_size', type=int, default=64, help='batch size')
     parser.add_argument('-stddev', type=float, default=0.02, help='stddev of Gaussians in toy datasets')
     parser.add_argument('-scale', type=float, default=1, help='scale of the toy datasets')
@@ -48,13 +48,14 @@ if __name__ == '__main__':
     parser.add_argument('-show_grad', type=bool, default=False, help='show gradients for 2D data')
     parser.add_argument('-show_path', type=bool, default=False, help='show interpolation paths')
     parser.add_argument('-save_image', type=bool, default=True, help='save image for image datasets')
+    parser.add_argument('-save_model', type=int, default=100000, help='save model every N iteration')
     parser.add_argument('-show_maxima', type=bool, default=True, help='show f(t) for real datapoints')
     parser.add_argument('-inter_step', type=float, default=1e-2,
                         help='step of the interpolation, 1/inter_step is the number of interpolation steps')
     parser.add_argument('-inter_method', type=str, default='slerp', help='interpolation method: lerp | slerp')
     parser.add_argument('-noise_range', type=float, default=100., help='range of t in f(t)')
     parser.add_argument('-noise_step', type=float, default=1., help='step of t in f(t)')
-    parser.add_argument('-noise_direct', type=bool, default=False, help='use gradient for direction in f(t)')
+    parser.add_argument('-noise_direct', type=bool, default=True, help='use gradient for direction in f(t)')
     parser.add_argument('-nrow', type=int, default=8, help='nrow in extrema plot')
     parser.add_argument('-ncol', type=int, default=8, help='ncol in extrema plot')
     parser.add_argument('-is_image', action='store_true', help='work with image')
@@ -101,6 +102,11 @@ if __name__ == '__main__':
     print(G)
     print(D)
 
-    GAN(G, D, args)
+    if args.loss == 'gan':
+        GAN(G, D, args)
+    elif args.loss == 'wgan':
+        WGAN(G, D, args)
+    else:
+        raise Exception('Loss function not supported')
     torch.save(G, prefix + '/G.t7')
     torch.save(D, prefix + '/D.t7')
