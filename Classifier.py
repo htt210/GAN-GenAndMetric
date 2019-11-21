@@ -2,6 +2,10 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.autograd as ag
+import torchvision.datasets as datasets
+import torchvision.transforms as transforms
+import torch.optim as optim
+import argparse
 
 
 class MNISTClassifier(nn.Module):
@@ -35,7 +39,7 @@ def train(args, model, device, train_loader, optimizer, epoch):
         if batch_idx % args.log_interval == 0:
             print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
                 epoch, batch_idx * len(data), len(train_loader.dataset),
-                       100. * batch_idx / len(train_loader), loss.item()))
+                100. * batch_idx / len(train_loader), loss.item()))
 
 
 def test(args, model, device, test_loader):
@@ -101,14 +105,14 @@ def main():
         ])),
         batch_size=args.test_batch_size, shuffle=True, **kwargs)
 
-    model = Net().to(device)
+    model = MNISTClassifier().to(device)
     optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=args.momentum)
 
     for epoch in range(1, args.epochs + 1):
         train(args, model, device, train_loader, optimizer, epoch)
         test(args, model, device, test_loader)
 
-    if (args.save_model):
+    if args.save_model:
         torch.save(model.state_dict(), "mnist_cnn.pt")
 
 

@@ -23,7 +23,7 @@ if __name__ == '__main__':
     parser.add_argument('-nlayer', type=int, default=3, help='number of layer in MLP')
     parser.add_argument('-lrd', type=float, default=3e-4, help='learning rate for D')
     parser.add_argument('-lrg', type=float, default=3e-4, help='learning rate for G')
-    parser.add_argument('-nd', type=int, default=5, help='number of D iterations per GAN iteration')
+    parser.add_argument('-nd', type=int, default=1, help='number of D iterations per GAN iteration')
     parser.add_argument('-ng', type=int, default=1, help='number of G iterations per GAN iteration')
     parser.add_argument('-gp_weight', type=float, default=10., help='weight of grad pen')
     parser.add_argument('-gp_center', type=float, default=1., help='grad pen center')

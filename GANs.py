@@ -82,6 +82,8 @@ def GAN(G: Generator, D: Discriminator, args):
                 _, _, scores = compute_extrema(D, fixed_real, noise_direction, args.noise_range, args.noise_step)
                 disp_extrema(scores, args.prefix + '/extrema_%05d.pdf' % it,
                              args.noise_range, args.noise_step, args.nrow, args.ncol)
+                with open(args.prefix + '/extrema.txt', 'a') as f:
+                    f.write('Iteration:' + str(it) + '\n' + str(scores) + '\n')
 
                 with torch.no_grad():
                     fixed_fake = G(fixed_noise)
@@ -91,6 +93,8 @@ def GAN(G: Generator, D: Discriminator, args):
                     _, _, scores = compute_extrema(D, fixed_fake, noise_direction, args.noise_range, args.noise_step)
                     disp_extrema(scores, args.prefix + '/extrema_fake_%05d.pdf' % it,
                                  args.noise_range, args.noise_step, args.nrow, args.ncol)
+                    with open(args.prefix + '/extrema_fake.txt', 'a') as f:
+                        f.write('Iteration:' + str(it) + '\n' + str(scores) + '\n')
 
         if it % args.save_model == args.save_model - 1:
             print('Saving model')
@@ -186,6 +190,8 @@ def WGAN(G: Generator, D: Discriminator, args):
                 _, _, scores = compute_extrema(D, fixed_real, noise_direction, args.noise_range, args.noise_step)
                 disp_extrema(scores, args.prefix + '/extrema_%05d.pdf' % it,
                              args.noise_range, args.noise_step, args.nrow, args.ncol)
+                with open(args.prefix + '/extrema.txt', 'a') as f:
+                    f.write('Iteration:' + str(it) + '\n' + str(scores) + '\n')
 
                 with torch.no_grad():
                     fixed_fake = G(fixed_noise)
@@ -195,6 +201,8 @@ def WGAN(G: Generator, D: Discriminator, args):
                     _, _, scores = compute_extrema(D, fixed_fake, noise_direction, args.noise_range, args.noise_step)
                     disp_extrema(scores, args.prefix + '/extrema_fake_%05d.pdf' % it,
                                  args.noise_range, args.noise_step, args.nrow, args.ncol)
+                    with open(args.prefix + '/extrema_fake.txt', 'a') as f:
+                        f.write('Iteration:' + str(it) + '\n' + str(scores) + '\n')
 
         if it % args.save_model == args.save_model - 1:
             print('Saving model')

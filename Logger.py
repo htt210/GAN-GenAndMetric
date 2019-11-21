@@ -251,7 +251,8 @@ def disp_extrema(scores, outfile, noise_range=5, noise_step=0.1, nrow=8, ncol=8)
     for i in range(len(scores)):
         row = i // ncol
         col = i % nrow
-        axes[row][col].set_ylim(0., max(1., scores[i].max()))
-        axes[row][col].plot(noise_range, scores[i])
+        if scores[i].min() > 0:
+            axes[row][col].set_ylim(-0.1, max(1.1, scores[i].max()))
+        axes[row][col].plot(noise_range, scores[i], 'r-')
     plt.savefig(outfile, bbox_inches='tight')
     plt.close(fig)
