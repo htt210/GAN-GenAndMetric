@@ -216,14 +216,20 @@ def disp_path(G: Generator, D: Discriminator, noise_data: NoiseDataset, real_dat
 
 
 def compute_extrema(D: Discriminator, xs, noise=None, noise_range=5, noise_step=0.1):
+    # print(xs.size())
+    # xsscores = D(xs)
+    # print(xsscores)
     gradients = []
     grad_norms = []
     scores = []
     noise_range = torch.arange(-noise_range, noise_range, step=noise_step, device=xs.device).view(-1, 1)
+    if xs[0].dim() > 2:
+        dims = [1] * xs[0].dim()
+        noise_range = noise_range.view(-1, *dims)
     # print(grad_range.size())
     ones = torch.ones_like(noise_range)
 
-    for fx in xs.unbind():
+    for fx in xs.split(1):
         fx.requires_grad_()
         fs = D(fx)
         if noise is None:
@@ -232,8 +238,9 @@ def compute_extrema(D: Discriminator, xs, noise=None, noise_range=5, noise_step=
                                create_graph=True, retain_graph=True, only_inputs=True)[0]
         else:
             gradient = noise
-        fx_range = noise_range * gradient / gradient.norm() + ones * fx  # n_range x d_x matrix
-        score_range = D(fx_range)
+        normed_grad = gradient / gradient.norm()
+        fx_range = noise_range * normed_grad + ones * fx  # n_range x d_x matrix
+        score_range = D(fx_range).squeeze()
         scores.append(score_range.data.cpu().numpy())
         grad_norms.append(gradient.norm().item())
         gradients.append(gradient.data / grad_norms[-1])
@@ -251,8 +258,8 @@ def disp_extrema(scores, outfile, noise_range=5, noise_step=0.1, nrow=8, ncol=8)
     for i in range(len(scores)):
         row = i // ncol
         col = i % nrow
-        if scores[i].min() > 0:
-            axes[row][col].set_ylim(-0.1, max(1.1, scores[i].max()))
+        # if scores[i].min() > 0:
+        #     axes[row][col].set_ylim(-0.1, max(1.1, scores[i].max()))
         axes[row][col].plot(noise_range, scores[i], 'r-')
     plt.savefig(outfile, bbox_inches='tight')
     plt.close(fig)

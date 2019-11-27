@@ -54,24 +54,26 @@ def GAN(G: Generator, D: Discriminator, args):
 
     z_start = noise_data.next_batch(batch_size=32, device=args.device)
     z_end = noise_data.next_batch(batch_size=32, device=args.device)
+
     fixed_real = real_data.next_batch(args.nrow * args.ncol, device=args.device)
     fixed_noise = noise_data.next_batch(args.nrow * args.ncol, device=args.device)
     noise_direction = torch.rand_like(fixed_real[0], device=args.device) if args.noise_direct else None
-    if args.noise_dim > 2:  # image data
+    torchvision.utils.save_image(
+        fixed_real.view((args.nrow * args.ncol, args.nc, args.image_size, args.image_size)),
+        args.prefix + '/real.png', nrow=args.nrow, normalize=True)
+    noise_range = torch.arange(-args.noise_range, args.noise_range, step=args.noise_step,
+                               device='cpu').view(-1).numpy()
+    for i in range(len(noise_range)):
+        noise_level = noise_range[i]
+        # print(noise_level)
+        real_noise = fixed_real + noise_level * noise_direction / noise_direction.norm()
         torchvision.utils.save_image(
-            fixed_real.view((args.nrow * args.ncol, args.nc, args.image_size, args.image_size)),
-            args.prefix + '/real.png', nrow=args.nrow)
-        noise_range = torch.arange(-args.noise_range, args.noise_range, step=args.noise_step,
-                                   device='cpu').view(-1).numpy()
-        for i in range(len(noise_range)):
-            noise_level = noise_range[i]
-            # print(noise_level)
-            real_noise = fixed_real + noise_level * noise_direction / noise_direction.norm()
-            torchvision.utils.save_image(
-                real_noise.view((args.nrow * args.ncol, args.nc, args.image_size, args.image_size)),
-                args.prefix + '/real_noise_%05d.png' % i, nrow=args.nrow)
+            real_noise.view((args.nrow * args.ncol, args.nc, args.image_size, args.image_size)),
+            args.prefix + '/real_noise_%05d.png' % i, nrow=args.nrow, normalize=True)
 
     for it in range(args.niters):
+        if it % 100 == 0:
+            print('Iteration %d' % it)
         if it % args.log_interval == 0:
             print('Iteration %d' % it)
             if args.show_grad:
@@ -89,7 +91,7 @@ def GAN(G: Generator, D: Discriminator, args):
                     fixed_fake = G(fixed_noise)
                     torchvision.utils.save_image(
                         fixed_fake.view((args.nrow * args.ncol, args.nc, args.image_size, args.image_size)),
-                        args.prefix + '/fake_%05d.png' % it, nrow=args.nrow)
+                        args.prefix + '/fake_%05d.png' % it, nrow=args.nrow, normalize=True)
                     _, _, scores = compute_extrema(D, fixed_fake, noise_direction, args.noise_range, args.noise_step)
                     disp_extrema(scores, args.prefix + '/extrema_fake_%05d.pdf' % it,
                                  args.noise_range, args.noise_step, args.nrow, args.ncol)
@@ -168,7 +170,7 @@ def WGAN(G: Generator, D: Discriminator, args):
     if args.noise_dim > 2:  # image data
         torchvision.utils.save_image(
             fixed_real.view((args.nrow * args.ncol, args.nc, args.image_size, args.image_size)),
-            args.prefix + '/real.png', nrow=args.nrow)
+            args.prefix + '/real.png', nrow=args.nrow, normalize=True)
         noise_range = torch.arange(-args.noise_range, args.noise_range, step=args.noise_step,
                                    device='cpu').view(-1).numpy()
         for i in range(len(noise_range)):
@@ -177,9 +179,11 @@ def WGAN(G: Generator, D: Discriminator, args):
             real_noise = fixed_real + noise_level * noise_direction / noise_direction.norm()
             torchvision.utils.save_image(
                 real_noise.view((args.nrow * args.ncol, args.nc, args.image_size, args.image_size)),
-                args.prefix + '/real_noise_%05d.png' % i, nrow=args.nrow)
+                args.prefix + '/real_noise_%05d.png' % i, nrow=args.nrow, normalize=True)
 
     for it in range(args.niters):
+        if it % 100 == 0:
+            print('Iteration %d' % it)
         if it % args.log_interval == 0:
             print('Iteration %d' % it)
             if args.show_grad:
@@ -197,7 +201,7 @@ def WGAN(G: Generator, D: Discriminator, args):
                     fixed_fake = G(fixed_noise)
                     torchvision.utils.save_image(
                         fixed_fake.view((args.nrow * args.ncol, args.nc, args.image_size, args.image_size)),
-                        args.prefix + '/fake_%05d.png' % it, nrow=args.nrow)
+                        args.prefix + '/fake_%05d.png' % it, nrow=args.nrow, normalize=True)
                     _, _, scores = compute_extrema(D, fixed_fake, noise_direction, args.noise_range, args.noise_step)
                     disp_extrema(scores, args.prefix + '/extrema_fake_%05d.pdf' % it,
                                  args.noise_range, args.noise_step, args.nrow, args.ncol)

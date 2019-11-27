@@ -2,17 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9465497e-818e-47ba-985b-46312f5b51df" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/FigsExtractor.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Rename.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dropbox" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/MainImage.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/GanBeyondCode.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/GanBeyondCode.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classifier.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classifier.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets.py" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Discriminators.py" beforeDir="false" afterPath="$PROJECT_DIR$/Discriminators.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GANs.py" beforeDir="false" afterPath="$PROJECT_DIR$/GANs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Generators.py" beforeDir="false" afterPath="$PROJECT_DIR$/Generators.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Logger.py" beforeDir="false" afterPath="$PROJECT_DIR$/Logger.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainExtrema.py" beforeDir="false" afterPath="$PROJECT_DIR$/MainExtrema.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run.sh" beforeDir="false" afterPath="$PROJECT_DIR$/run.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainToy.py" beforeDir="false" afterPath="$PROJECT_DIR$/MainToy.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -33,6 +31,7 @@
   <component name="ProjectId" id="1OswbdqY42XmRruBlHGA5LIOU6O" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
@@ -54,7 +53,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.FigsExtractor">
+  <component name="RunManager" selected="Python.MainExtrema">
     <configuration name="FigsExtractor" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="GanBeyondCode" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -97,6 +96,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="MainCIFAR10" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="GanBeyondCode" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/MainImage.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="MainExtrema" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="GanBeyondCode" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -118,7 +138,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Rename" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="MainMNIST" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="GanBeyondCode" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -130,7 +150,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Rename.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/MainMNIST.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -140,17 +160,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.MainExtrema" />
-      <item itemvalue="Python.Main" />
-      <item itemvalue="Python.Rename" />
       <item itemvalue="Python.FigsExtractor" />
+      <item itemvalue="Python.MainCIFAR10" />
+      <item itemvalue="Python.Main" />
+      <item itemvalue="Python.MainMNIST" />
+      <item itemvalue="Python.MainExtrema" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.FigsExtractor" />
-        <item itemvalue="Python.Rename" />
         <item itemvalue="Python.MainExtrema" />
+        <item itemvalue="Python.MainMNIST" />
+        <item itemvalue="Python.MainCIFAR10" />
         <item itemvalue="Python.Main" />
+        <item itemvalue="Python.FigsExtractor" />
       </list>
     </recent_temporary>
   </component>
@@ -165,6 +187,14 @@
       <option name="presentableId" value="Default" />
       <updated>1564779684688</updated>
     </task>
+    <task id="LOCAL-00001" summary="aistats">
+      <created>1574305621415</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1574305621415</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -180,10 +210,15 @@
       </map>
     </option>
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="aistats" />
+    <option name="LAST_COMMIT_MESSAGE" value="aistats" />
+  </component>
   <component name="XDebuggerManager">
     <watches-manager>
       <configuration name="PythonConfigurationType">
         <watch expression="noise_batch.size()" language="Python" />
+        <watch expression="inputs.size()" language="Python" />
       </configuration>
     </watches-manager>
   </component>

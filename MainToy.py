@@ -25,9 +25,9 @@ if __name__ == '__main__':
     parser.add_argument('-lrg', type=float, default=1e-2, help='learning rate for G')
     parser.add_argument('-nd', type=int, default=1, help='number of D iterations per GAN iteration')
     parser.add_argument('-ng', type=int, default=1, help='number of G iterations per GAN iteration')
-    parser.add_argument('-gp_weight', type=float, default=1., help='weight of grad pen')
-    parser.add_argument('-gp_center', type=float, default=1., help='grad pen center')
-    parser.add_argument('-gp_inter', type=float, default=None,
+    parser.add_argument('-gp_weight', type=float, default=10., help='weight of grad pen')
+    parser.add_argument('-gp_center', type=float, default=0., help='grad pen center')
+    parser.add_argument('-gp_inter', type=float, default=1.,
                         help='grad pen interpolation: 0 | 1 | None <=> on fake | on real | random')
     parser.add_argument('-optimizer', type=str, default='sgd', help='optimizer: adam | sgd')
     parser.add_argument('-momentum', type=float, default=0.0, help='momentum for sgd')
@@ -48,6 +48,7 @@ if __name__ == '__main__':
     parser.add_argument('-show_grad', action='store_true', help='show gradients for 2D data')
     parser.add_argument('-show_path', action='store_true', help='show interpolation paths')
     parser.add_argument('-save_image', action='store_true', help='save image for image datasets')
+    parser.add_argument('-save_model', type=int, default=100000, help='save model after iterations')
     parser.add_argument('-show_maxima', action='store_true', help='show f(t) for real datapoints')
     parser.add_argument('-inter_step', type=float, default=1e-2,
                         help='step of the interpolation, 1/inter_step is the number of interpolation steps')
@@ -59,6 +60,8 @@ if __name__ == '__main__':
     if not os.path.exists(prefix):
         os.mkdir(prefix)
     prefix = prefix + args.loss + '_' + args.arch + '_' + args.dataset + '_'
+
+    args.is_image = False
 
     for k, v in args.__dict__.items():
         if k != 'loss' and k != 'arch' and k != 'dataset' and k != 'device' \

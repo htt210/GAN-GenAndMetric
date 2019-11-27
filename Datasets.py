@@ -42,7 +42,7 @@ class ToyMissingDataset:
                 for y in range(-2, 3):
                     # point[0] += 2 * x
                     # point[1] += 2 * y
-                    self.centers.append((2 * x, 2*y))
+                    self.centers.append((2 * x, 2 * y))
             self.range = 2
         elif dataset == 'Swissroll':
             pass
@@ -96,23 +96,20 @@ class MNISTDataset:
         return batch.to(device)
 
 
-class CelebADataset:
-    def __init__(self, dataroot, image_size):
-        # We can use an image folder dataset the way we have it setup.
-        # Create the dataset
-        dataset = datasets.ImageFolder(root=dataroot,
-                                       transform=transforms.Compose([
-                                           transforms.Resize(image_size),
-                                           transforms.CenterCrop(image_size),
-                                           transforms.ToTensor(),
-                                           transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
-                                       ]))
-        # Create the dataloader
-        dataloader = torch.utils.data.DataLoader(dataset, batch_size=1,
-                                                 shuffle=True, num_workers=4)
+class CIFAR10Dataset:
+    def __init__(self, train=True, img_size=32):
+        dataloader = torch.utils.data.DataLoader(datasets.CIFAR10(root='~/github/data/cifar10/', download=True,
+                                                                  transform=transforms.Compose([
+                                                                      transforms.Resize(img_size),
+                                                                      transforms.ToTensor(),
+                                                                      transforms.Normalize((0.5, 0.5, 0.5),
+                                                                                           (0.5, 0.5, 0.5)),
+                                                                  ]), train=train), shuffle=True, batch_size=1)
+        self.data = []
 
         self.data = []
-        for i, x in enumerate(dataloader):
+        for i, (x, y) in enumerate(dataloader):
+            # print(type(x), len(x))
             self.data.append(x)
         self.loc = 0
         self.n_samples = len(self.data)
@@ -127,23 +124,74 @@ class CelebADataset:
         batch = torch.cat(batch, 0)
         return batch.to(device)
 
-        # Decide which device we want to run on
-        # device = torch.device("cuda:0" if (torch.cuda.is_available() and ngpu > 0) else "cpu")
 
-        # Plot some training images
-        # real_batch = next(iter(dataloader))
-        # plt.figure(figsize=(8, 8))
-        # plt.axis("off")
-        # plt.title("Training Images")
-        # plt.imshow(
-        #     np.transpose(utils.make_grid(real_batch[0].to(device)[:64], padding=2, normalize=True).cpu(), (1, 2, 0)))
+class FashionMNISTDataset:
+    def __init__(self, train=True, img_size=32):
+        dataloader = torch.utils.data.DataLoader(datasets.FashionMNIST(root='~/github/data/mnist/', download=True,
+                                                                       transform=transforms.Compose([
+                                                                           transforms.Resize(img_size),
+                                                                           transforms.ToTensor(),
+                                                                           transforms.Normalize((0.5,), (0.5,)),
+                                                                       ]), train=train), shuffle=True, batch_size=1)
+        self.data = []
+
+        self.data = []
+        for i, (x, y) in enumerate(dataloader):
+            # print(type(x), len(x))
+            self.data.append(x)
+        self.loc = 0
+        self.n_samples = len(self.data)
+
+    def next_batch(self, batch_size, device):
+        if self.loc + batch_size > self.n_samples:
+            random.shuffle(self.data)
+            self.loc = 0
+
+        batch = self.data[self.loc: self.loc + batch_size]
+        self.loc += batch_size
+        batch = torch.cat(batch, 0)
+        return batch.to(device)
+
+
+class CelebADataset:
+    def __init__(self, image_size=64):
+        dataset = datasets.ImageFolder(root='~/github/img_align_celeba/',
+                                       transform=transforms.Compose([
+                                           transforms.Resize(image_size),
+                                           transforms.CenterCrop(image_size),
+                                           transforms.ToTensor(),
+                                           transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
+                                       ]))
+        # Create the dataloader
+        dataloader = torch.utils.data.DataLoader(dataset, batch_size=1,
+                                                 shuffle=True, num_workers=4)
+
+        self.data = []
+        for i, (x, y) in enumerate(dataloader):
+            self.data.append(x)
+        self.loc = 0
+        self.n_samples = len(self.data)
+
+    def next_batch(self, batch_size, device):
+        if self.loc + batch_size > self.n_samples:
+            random.shuffle(self.data)
+            self.loc = 0
+
+        batch = self.data[self.loc: self.loc + batch_size]
+        self.loc += batch_size
+        batch = torch.cat(batch, 0)
+        return batch.to(device)
 
 
 def load_dataset(dataset, args):
     if dataset == 'mnist':
         return MNISTDataset(train=True)
+    elif dataset == 'fashionMNIST':
+        return FashionMNISTDataset(train=True, img_size=args.image_size)
+    elif dataset == 'cifar10':
+        return CIFAR10Dataset(train=True, img_size=args.image_size)
     elif dataset == 'celeba':
-        return CelebADataset(dataroot=args.dataroot, image_size=args.image_size)
+        return CelebADataset(image_size=args.image_size)
     else:
         return ToyMissingDataset(dataset, stddev=args.stddev,
                                  drop_centers=args.drop_centers, scale=args.scale)
