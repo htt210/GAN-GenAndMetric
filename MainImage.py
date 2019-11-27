@@ -84,13 +84,13 @@ if __name__ == '__main__':
     print(prefix, len(prefix))
     args.prefix = prefix
 
-    img_size = 28
-    args.nc = 1
-    if args.dataset == 'cifar10':
-        img_size = 64
-        args.nc = 3
-    elif args.dataset == 'fashionMNIST':
-        img_size = 64
+    img_size = 64
+    args.nc = 3
+    # if args.dataset == 'cifar10':
+    #     img_size = 64
+    #     args.nc = 3
+    if args.dataset == 'fashionMNIST':
+        # img_size = 64
         args.nc = 1
 
     args.is_image = True

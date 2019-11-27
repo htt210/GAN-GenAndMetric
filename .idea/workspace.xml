@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9465497e-818e-47ba-985b-46312f5b51df" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/MainImage.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/GanBeyondCode.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/GanBeyondCode.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets.py" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Discriminators.py" beforeDir="false" afterPath="$PROJECT_DIR$/Discriminators.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GANs.py" beforeDir="false" afterPath="$PROJECT_DIR$/GANs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Generators.py" beforeDir="false" afterPath="$PROJECT_DIR$/Generators.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logger.py" beforeDir="false" afterPath="$PROJECT_DIR$/Logger.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainToy.py" beforeDir="false" afterPath="$PROJECT_DIR$/MainToy.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainImage.py" beforeDir="false" afterPath="$PROJECT_DIR$/MainImage.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -194,7 +186,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574305621415</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="add image datasets">
+      <created>1574896442438</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1574896442438</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -212,7 +211,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="aistats" />
-    <option name="LAST_COMMIT_MESSAGE" value="aistats" />
+    <MESSAGE value="add image datasets" />
+    <option name="LAST_COMMIT_MESSAGE" value="add image datasets" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
