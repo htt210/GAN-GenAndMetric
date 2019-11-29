@@ -158,7 +158,7 @@ def inceptions(rootfolder, noise, n_batch=1000, device='cuda', batch_size=32, re
     for file in files:
         filepath = os.path.join(rootfolder, file)
         if os.path.isdir(filepath):
-            inceptions(filepath, noise, n_batch, device, batch_size, resize, splits)
+            inceptions(filepath, noise, n_batch=n_batch, device=device, batch_size=batch_size, resize=resize, splits=splits)
         elif file == 'G.t7':
             print(filepath, inception_score_model(torch.load(filepath), noise, n_batch=n_batch,
                                                   device=device, batch_size=batch_size, resize=resize, splits=splits))
@@ -181,4 +181,4 @@ if __name__ == '__main__':
         generator = torch.load(args.gpath)
         print(inception_score_model(generator=generator, noise=noise, batch_size=args.batch_size, n_batch=args.n_batch))
     else:
-        inceptions(rootfolder=args.gpath, noise=noise, n_batch=args.n_batch, device=args.device, batch_size=args.device, resize=True, splits=1)
+        inceptions(rootfolder=args.gpath, noise=noise, n_batch=args.n_batch, device=args.device, batch_size=args.batch_size, resize=True, splits=1)
