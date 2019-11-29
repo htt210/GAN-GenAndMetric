@@ -110,12 +110,12 @@ def GAN(G: Generator, D: Discriminator, args):
             # train real
             real_batch = real_data.next_batch(args.batch_size, args.device)
             pred_real = D(real_batch)
-            loss_real = criterion(pred_real, ones)
+            loss_real = criterion(pred_real, ones) * args.real_weight
             # train fake
             noise_batch = noise_data.next_batch(args.batch_size, args.device)
             fake_batch = G(noise_batch).detach()
             pred_fake = D(fake_batch)
-            loss_fake = criterion(pred_fake, zeros)
+            loss_fake = criterion(pred_fake, zeros) * args.fake_weight
             # grad pen
             grad_pen = 0
             if args.gp_weight > 0:

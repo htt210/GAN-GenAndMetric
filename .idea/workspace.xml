@@ -2,6 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9465497e-818e-47ba-985b-46312f5b51df" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/ComputeInception.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/result.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/runCIFAR10_GAN0GP.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/runCIFAR10_GAN0GP_Imbalanced_10_1.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/runCIFAR10_GANNS.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/runCIFAR10_GANNS_Imbalanced_10_1.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/runCIFAR10_GANR1.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/runCelebA_GAN0GP.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/runCelebA_GANNS.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/runCelebA_GANR1.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/GanBeyondCode.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/GanBeyondCode.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets.py" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GANs.py" beforeDir="false" afterPath="$PROJECT_DIR$/GANs.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MainImage.py" beforeDir="false" afterPath="$PROJECT_DIR$/MainImage.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -45,8 +60,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.MainExtrema">
-    <configuration name="FigsExtractor" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python.ComputeInception">
+    <configuration name="ComputeInception" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="GanBeyondCode" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -58,7 +73,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/FigsExtractor.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ComputeInception.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -152,19 +167,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.FigsExtractor" />
       <item itemvalue="Python.MainCIFAR10" />
       <item itemvalue="Python.Main" />
       <item itemvalue="Python.MainMNIST" />
       <item itemvalue="Python.MainExtrema" />
+      <item itemvalue="Python.ComputeInception" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.ComputeInception" />
+        <item itemvalue="Python.MainCIFAR10" />
         <item itemvalue="Python.MainExtrema" />
         <item itemvalue="Python.MainMNIST" />
-        <item itemvalue="Python.MainCIFAR10" />
         <item itemvalue="Python.Main" />
-        <item itemvalue="Python.FigsExtractor" />
       </list>
     </recent_temporary>
   </component>
@@ -193,7 +208,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574896442438</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="add image datasets">
+      <created>1574896547434</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1574896547434</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import torch
 import random
@@ -154,8 +155,8 @@ class FashionMNISTDataset:
 
 
 class CelebADataset:
-    def __init__(self, image_size=64):
-        dataset = datasets.ImageFolder(root='~/github/img_align_celeba/',
+    def __init__(self, image_size=64, batch_size=64):
+        dataset = datasets.ImageFolder(root=os.path.expanduser('~/github/data/celeba/'),
                                        transform=transforms.Compose([
                                            transforms.Resize(image_size),
                                            transforms.CenterCrop(image_size),
@@ -163,24 +164,33 @@ class CelebADataset:
                                            transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
                                        ]))
         # Create the dataloader
-        dataloader = torch.utils.data.DataLoader(dataset, batch_size=1,
-                                                 shuffle=True, num_workers=4)
+        self.dataloader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=True,
+                                                      num_workers=4, drop_last=True)
+        self.iter = iter(self.dataloader)
 
-        self.data = []
-        for i, (x, y) in enumerate(dataloader):
-            self.data.append(x)
-        self.loc = 0
-        self.n_samples = len(self.data)
+        # self.data = []
+        # for i, x in enumerate(dataloader):
+        #     if i % 1000 == 0:
+        #         print(i, len(x))
+        #     self.data.append(x)
+        # self.loc = 0
+        # self.n_samples = len(self.data)
 
     def next_batch(self, batch_size, device):
-        if self.loc + batch_size > self.n_samples:
-            random.shuffle(self.data)
-            self.loc = 0
+        # if self.loc + batch_size > self.n_samples:
+        #     random.shuffle(self.data)
+        #     self.loc = 0
+        #
+        # batch = self.data[self.loc: self.loc + batch_size]
+        # self.loc += batch_size
+        # batch = torch.cat(batch, 0)
+        batch = next(self.iter, None)
+        if batch is None:
+            self.iter = iter(self.dataloader)
+            batch = next(self.iter, None)
 
-        batch = self.data[self.loc: self.loc + batch_size]
-        self.loc += batch_size
-        batch = torch.cat(batch, 0)
-        return batch.to(device)
+        # print(len(batch), batch.size())
+        return batch[0].to(device)
 
 
 def load_dataset(dataset, args):
@@ -191,7 +201,7 @@ def load_dataset(dataset, args):
     elif dataset == 'cifar10':
         return CIFAR10Dataset(train=True, img_size=args.image_size)
     elif dataset == 'celeba':
-        return CelebADataset(image_size=args.image_size)
+        return CelebADataset(image_size=args.image_size, batch_size=args.batch_size)
     else:
         return ToyMissingDataset(dataset, stddev=args.stddev,
                                  drop_centers=args.drop_centers, scale=args.scale)
