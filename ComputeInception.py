@@ -167,8 +167,8 @@ def inceptions(rootfolder, noise, n_batch=1000, device='cuda', batch_size=32, re
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('-mode', type=str, default='single', help='single | multi. Compute inception score of '
-                                                                  'single model / all model in a folder')
+    parser.add_argument('-mode', type=str, default='multi', help='single | multi. Compute inception score of '
+                                                                 'single model / all models in a folder')
     parser.add_argument('-gpath', type=str, default='', help='path to generator .t7')
     parser.add_argument('-noise_dim', type=int, default=100, help='noise dim')
     parser.add_argument('-batch_size', type=int, default=32, help='batch size')
