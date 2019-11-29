@@ -74,7 +74,7 @@ def inception_score(imgs, cuda=True, batch_size=32, resize=False, splits=1):
     return np.mean(split_scores), np.std(split_scores)
 
 
-def inception_score_model(generator, noise, n_batch=1000, cuda=True, batch_size=32, resize=True, splits=1):
+def inception_score_model(generator, noise, n_batch=1000, device='cuda', batch_size=32, resize=True, splits=1):
     N = n_batch * batch_size
 
     assert batch_size > 0
@@ -103,7 +103,7 @@ def inception_score_model(generator, noise, n_batch=1000, cuda=True, batch_size=
 
     for i in range(n_batch):
         # print(i)
-        batch = generator(noise.next_batch(batch_size, device='cuda'))
+        batch = generator(noise.next_batch(batch_size, device=device))
         batch = batch.type(dtype)
         batch_size_i = batch.size()[0]
         # print(i, batch.size(), batch.type())
@@ -153,12 +153,27 @@ def inception_score_model(generator, noise, n_batch=1000, cuda=True, batch_size=
 #     print(inception_score(IgnoreLabelDataset(cifar), cuda=True, batch_size=32, resize=True, splits=10))
 
 
+def inceptions(rootfolder, noise, n_batch=1000, device='cuda', batch_size=32, resize=True, splits=1):
+    files = os.listdir(rootfolder)
+    for file in files:
+        filepath = os.path.join(rootfolder, file)
+        if os.path.isdir(filepath):
+            inceptions(filepath)
+        elif file == 'G.t7':
+            print(filepath, inception_score_model(torch.load(filepath), noise, n_batch=n_batch,
+                                                  device=device, batch_size=batch_size, resize=resize, splits=splits))
+
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
+    parser.add_argument('-mode', type=str, default='single', help='single | multi. Compute inception score of '
+                                                                  'single model / all model in a folder')
     parser.add_argument('-gpath', type=str, default='', help='path to generator .t7')
     parser.add_argument('-noise_dim', type=int, default=100, help='noise dim')
     parser.add_argument('-batch_size', type=int, default=32, help='batch size')
     parser.add_argument('-n_batch', type=int, default=1000, help='number of batch')
+    parser.add_argument('-device', type=str, default='cuda', help='cuda device')
     args = parser.parse_args()
 
     noise = NoiseDataset(dim=args.noise_dim, is_image=True)
