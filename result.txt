@@ -12,5 +12,8 @@ DCGAN0GP imbalanced 10 1; gpweight 100
 DCGAN
 (1.5819933413484495, 0.0)
 
+DCGAN0GP, gpweight 10, iteration 30k
+(2.4194444108828077, 0.0)
+
 
 

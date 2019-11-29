@@ -2,22 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9465497e-818e-47ba-985b-46312f5b51df" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/ComputeInception.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/result.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runCIFAR10_GAN0GP.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runCIFAR10_GAN0GP_Imbalanced_10_1.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runCIFAR10_GANNS.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runCIFAR10_GANNS_Imbalanced_10_1.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runCIFAR10_GANR1.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runCelebA_GAN0GP.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runCelebA_GANNS.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runCelebA_GANR1.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/GanBeyondCode.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/GanBeyondCode.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets.py" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GANs.py" beforeDir="false" afterPath="$PROJECT_DIR$/GANs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainImage.py" beforeDir="false" afterPath="$PROJECT_DIR$/MainImage.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/result.txt" beforeDir="false" afterPath="$PROJECT_DIR$/result.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runCIFAR10_GAN0GP.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runCIFAR10_GAN0GP.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runCIFAR10_GAN0GP_Imbalanced_10_1.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runCIFAR10_GAN0GP_Imbalanced_10_1.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runCIFAR10_GANNS.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runCIFAR10_GANNS.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runCIFAR10_GANNS_Imbalanced_10_1.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runCIFAR10_GANNS_Imbalanced_10_1.sh" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
