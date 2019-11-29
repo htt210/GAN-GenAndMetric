@@ -177,5 +177,8 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     noise = NoiseDataset(dim=args.noise_dim, is_image=True)
-    generator = torch.load(args.gpath)
-    print(inception_score_model(generator=generator, noise=noise, batch_size=args.batch_size, n_batch=args.n_batch))
+    if args.mode == 'single':
+        generator = torch.load(args.gpath)
+        print(inception_score_model(generator=generator, noise=noise, batch_size=args.batch_size, n_batch=args.n_batch))
+    else:
+        inceptions(rootfolder=args.gpath, noise=noise, n_batch=args.n_batch, device=args.device, batch_size=args.device, resize=True, splits=1)

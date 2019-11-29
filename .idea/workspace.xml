@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="9465497e-818e-47ba-985b-46312f5b51df" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runCIFAR10_GAN0GP_Imbalanced_10_1.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runCIFAR10_GAN0GP_Imbalanced_10_1.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ComputeInception.py" beforeDir="false" afterPath="$PROJECT_DIR$/ComputeInception.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
