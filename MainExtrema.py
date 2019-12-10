@@ -15,18 +15,20 @@ from GANs import *
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('-loss', type=str, default='wgan', help='loss function: gan | wgan')
+    parser.add_argument('-loss', type=str, default='gan', help='loss function: gan | wgan')
     parser.add_argument('-arch', type=str, default='mlp', help='architecture: mlp | dcgan')
     parser.add_argument('-dataset', type=str, default='mnist',
                         help='dataset: mnist | celeba | 8Gaussian | 25Gaussian | Swissroll')
+    parser.add_argument('-real_weight', type=float, default=1, help='weight of a real example')
+    parser.add_argument('-fake_weight', type=float, default=1, help='weight of a fake example')
     parser.add_argument('-nhidden', type=int, default=512, help='number of hidden unit in MLP')
     parser.add_argument('-nlayer', type=int, default=3, help='number of layer in MLP')
     parser.add_argument('-lrd', type=float, default=3e-4, help='learning rate for D')
     parser.add_argument('-lrg', type=float, default=3e-4, help='learning rate for G')
     parser.add_argument('-nd', type=int, default=1, help='number of D iterations per GAN iteration')
     parser.add_argument('-ng', type=int, default=1, help='number of G iterations per GAN iteration')
-    parser.add_argument('-gp_weight', type=float, default=10., help='weight of grad pen')
-    parser.add_argument('-gp_center', type=float, default=1., help='grad pen center')
+    parser.add_argument('-gp_weight', type=float, default=100., help='weight of grad pen')
+    parser.add_argument('-gp_center', type=float, default=0., help='grad pen center')
     parser.add_argument('-gp_inter', type=float, default=None,
                         help='grad pen interpolation: 0 | 1 | None <=> on fake | on real | random')
     parser.add_argument('-optimizer', type=str, default='adam', help='optimizer: adam | sgd')
@@ -39,7 +41,7 @@ if __name__ == '__main__':
     parser.add_argument('-noise_dim', type=int, default=50, help='dimensionality of noise distribution')
 
     parser.add_argument('-niters', type=int, default=200001, help='number of training iteration')
-    parser.add_argument('-log_interval', type=int, default=5000, help='log interval')
+    parser.add_argument('-log_interval', type=int, default=1000, help='log interval')
     parser.add_argument('-batch_size', type=int, default=64, help='batch size')
     parser.add_argument('-stddev', type=float, default=0.02, help='stddev of Gaussians in toy datasets')
     parser.add_argument('-scale', type=float, default=1, help='scale of the toy datasets')

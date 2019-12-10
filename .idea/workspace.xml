@@ -2,9 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9465497e-818e-47ba-985b-46312f5b51df" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/ComputeInception.py" beforeDir="false" afterPath="$PROJECT_DIR$/ComputeInception.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ParseInception.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/GanBeyondCode.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/GanBeyondCode.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GANs.py" beforeDir="false" afterPath="$PROJECT_DIR$/GANs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainExtrema.py" beforeDir="false" afterPath="$PROJECT_DIR$/MainExtrema.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run.sh" beforeDir="false" afterPath="$PROJECT_DIR$/run.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runCIFAR10_GAN0GP.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runCIFAR10_GAN0GP.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runCIFAR10_GAN0GP_Imbalanced_10_1.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runCIFAR10_GAN0GP_Imbalanced_10_1.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runCIFAR10_GANNS.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runCIFAR10_GANNS.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runCIFAR10_GANNS_Imbalanced_10_1.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runCIFAR10_GANNS_Imbalanced_10_1.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runCIFAR10_GANR1.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runCIFAR10_GANR1.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runCelebA_GAN0GP.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runCelebA_GAN0GP.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runCelebA_GANNS.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runCelebA_GANNS.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runCelebA_GANR1.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runCelebA_GANR1.sh" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -22,6 +35,11 @@
   </component>
   <component name="ProjectId" id="1OswbdqY42XmRruBlHGA5LIOU6O" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -33,19 +51,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
-  <component name="RunManager" selected="Python.ComputeInception">
+  <component name="RunManager" selected="Python.MainExtrema">
     <configuration name="ComputeInception" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="GanBeyondCode" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -67,7 +73,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Main" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="GANs" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="GanBeyondCode" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -79,8 +85,8 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/MainToy.py" />
-      <option name="PARAMETERS" value="-show_grad" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/GANs.py" />
+      <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -152,21 +158,33 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.MainCIFAR10" />
-      <item itemvalue="Python.Main" />
-      <item itemvalue="Python.MainMNIST" />
-      <item itemvalue="Python.MainExtrema" />
       <item itemvalue="Python.ComputeInception" />
+      <item itemvalue="Python.GANs" />
+      <item itemvalue="Python.MainCIFAR10" />
+      <item itemvalue="Python.MainExtrema" />
+      <item itemvalue="Python.MainMNIST" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.MainExtrema" />
+        <item itemvalue="Python.GANs" />
         <item itemvalue="Python.ComputeInception" />
         <item itemvalue="Python.MainCIFAR10" />
-        <item itemvalue="Python.MainExtrema" />
         <item itemvalue="Python.MainMNIST" />
-        <item itemvalue="Python.Main" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -220,6 +238,12 @@
     <MESSAGE value="aistats" />
     <MESSAGE value="add image datasets" />
     <option name="LAST_COMMIT_MESSAGE" value="add image datasets" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="102" y="23" key="SettingsEditor" timestamp="1575949569824">
+      <screen x="0" y="0" width="1200" height="760" />
+    </state>
+    <state x="102" y="23" key="SettingsEditor/0.0.1200.760@0.0.1200.760" timestamp="1575949569824" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

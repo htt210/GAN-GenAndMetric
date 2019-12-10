@@ -7,6 +7,7 @@ from Discriminators import *
 from Generators import *
 from Datasets import *
 from Logger import *
+import pickle as pkl
 
 
 def cal_grad_pen(G: Generator, D: Discriminator, real_batch, fake_batch, args):
@@ -57,6 +58,11 @@ def GAN(G: Generator, D: Discriminator, args):
 
     fixed_real = real_data.next_batch(args.nrow * args.ncol, device=args.device)
     fixed_noise = noise_data.next_batch(args.nrow * args.ncol, device=args.device)
+    fixed_fakes = []
+    fixed_fakes_scores = []
+    gen_time = [5000, 10000, 20000, -1]
+    ffs_idx = [[] for _ in range(len(gen_time))]
+    gen_idx = 0
     noise_direction = torch.rand_like(fixed_real[0], device=args.device) if args.noise_direct else None
     torchvision.utils.save_image(
         fixed_real.view((args.nrow * args.ncol, args.nc, args.image_size, args.image_size)),
@@ -74,8 +80,24 @@ def GAN(G: Generator, D: Discriminator, args):
     for it in range(args.niters):
         if it % 100 == 0:
             print('Iteration %d' % it)
+
+        if it == gen_time[gen_idx]:
+            gen_idx += 1
+            fixed_fakes.append(G(fixed_noise).data)
+            torchvision.utils.save_image(
+                fixed_fakes[-1].view((args.nrow * args.ncol, args.nc, args.image_size, args.image_size)),
+                args.prefix + '/fixed_fake_%05d.png' % it, nrow=1, normalize=True)
+            fixed_fakes_scores.append([])
+
         if it % args.log_interval == 0:
             print('Iteration %d' % it)
+
+            # calculate score for fixed fake
+            for ffi in range(len(fixed_fakes)):
+                ffs_idx[ffi].append(it)
+                fixed_fakes_scores[ffi].append(D(fixed_fakes[ffi]).data.cpu().numpy())
+                print(it, fixed_fakes_scores[ffi][-1][1][0], 'hey')
+
             if args.show_grad:
                 disp_grad(G, D, noise_data, real_data, criterion, it, args)
                 disp_map(G, D, noise_data, real_data, criterion, it, args)
@@ -135,6 +157,19 @@ def GAN(G: Generator, D: Discriminator, args):
             loss_g = criterion(pred_fake, ones)
             loss_g.backward()
             optim_g.step()
+
+    # plot scores of fixed_fakes
+    nimg = args.nrow * args.ncol
+    pkl.dump((gen_time, fixed_fakes, fixed_fakes_scores, ffs_idx), open(args.prefix + '/fixed_fake.t7', 'wb'))
+    print(ffs_idx)
+    for idx, (gi, ff, ffs) in enumerate(zip(gen_time, fixed_fakes, fixed_fakes_scores)):
+        fffig, ffax = plt.subplots(nimg, 1, figsize=(4, 128))
+        ffs = np.array(ffs)
+        print(ffs.shape)
+        for i in range(nimg):
+            ffax[i].plot(ffs_idx[idx], ffs[:, i])
+            ffax[i].set_ylim(-0.1, 1.1)
+        plt.savefig(args.prefix + '/fixed_fake_scores_%05d.pdf' % gi, bbox_inches='tight')
 
     return G, D
 
