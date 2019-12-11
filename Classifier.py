@@ -8,7 +8,12 @@ import torch.optim as optim
 import argparse
 
 
-class MNISTClassifier(nn.Module):
+class Classifier(nn.Module):
+    def forward(self, *inputs):
+        pass
+
+
+class MNISTClassifier(Classifier):
     def __init__(self):
         super(MNISTClassifier, self).__init__()
         self.conv1 = nn.Conv2d(1, 20, 5, 1)

@@ -2,12 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9465497e-818e-47ba-985b-46312f5b51df" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/ParseInception.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MDL.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/GanBeyondCode.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/GanBeyondCode.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GANs.py" beforeDir="false" afterPath="$PROJECT_DIR$/GANs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainExtrema.py" beforeDir="false" afterPath="$PROJECT_DIR$/MainExtrema.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classifier.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classifier.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run.sh" beforeDir="false" afterPath="$PROJECT_DIR$/run.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/runCIFAR10_GAN0GP.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runCIFAR10_GAN0GP.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/runCIFAR10_GAN0GP_Imbalanced_10_1.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runCIFAR10_GAN0GP_Imbalanced_10_1.sh" afterDir="false" />
@@ -218,7 +217,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574896547434</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="add image datasets">
+      <created>1575949828066</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1575949828066</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -240,10 +246,19 @@
     <option name="LAST_COMMIT_MESSAGE" value="add image datasets" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="102" y="23" key="SettingsEditor" timestamp="1575949569824">
+    <state x="257" y="0" key="CommitChangelistDialog2" timestamp="1575949823799">
       <screen x="0" y="0" width="1200" height="760" />
     </state>
-    <state x="102" y="23" key="SettingsEditor/0.0.1200.760@0.0.1200.760" timestamp="1575949569824" />
+    <state x="257" y="0" key="CommitChangelistDialog2/0.0.1200.760@0.0.1200.760" timestamp="1575949823799" />
+    <state x="223" y="56" key="SettingsEditor" timestamp="1576039539982">
+      <screen x="65" y="24" width="1855" height="1056" />
+    </state>
+    <state x="102" y="23" key="SettingsEditor/0.0.1200.760@0.0.1200.760" timestamp="1575950497632" />
+    <state x="223" y="56" key="SettingsEditor/65.24.1855.1056@65.24.1855.1056" timestamp="1576039539982" />
+    <state x="193" y="113" key="Vcs.Push.Dialog.v2" timestamp="1575949831431">
+      <screen x="0" y="0" width="1200" height="760" />
+    </state>
+    <state x="193" y="113" key="Vcs.Push.Dialog.v2/0.0.1200.760@0.0.1200.760" timestamp="1575949831431" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
