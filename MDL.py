@@ -66,12 +66,10 @@ def data_path_length(z_start, z_end, interpolation_method, n_steps, p,
         start_labels = None
         end_labels = None
         if classifier is not None:
-            # print(G(z_start).size())
-            # print(classifier(G(z_start)).size(), '\nXXXXXXXXXX')
             start_labels = classifier(G(z_start)).argmax(dim=1, keepdim=True)
             end_labels = classifier(G(z_end)).argmax(dim=1, keepdim=True)
 
-    print(dists.size(), start_labels.size())
+    # print(dists.size(), start_labels.size())
     return dists, start_labels, end_labels
 
 
@@ -89,9 +87,6 @@ def class_pair_path_length(dists, start_labels, end_labels, nclasses):
     labelid.squeeze_()
     class_len = {}
     len_mat = torch.empty(nclasses, nclasses).fill_(INFINITY)
-
-    print(dists.size(), start_labels.size(), nclasses)
-
     for i in range(nlabelpair):
         class_len[i] = INFINITY
         di = dists[labelid == i]

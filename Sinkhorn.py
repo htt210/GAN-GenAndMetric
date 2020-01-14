@@ -34,12 +34,9 @@ class SinkhornDistance(nn.Module):
         self.device = device
 
     def forward(self, x, y):
-        print('x, y', x.size(), y.size())
         # The Sinkhorn algorithm takes as input three variables :
         C = self._cost_matrix(x, y)  # Wasserstein cost function
         x_points = y_points = C.size(0)
-        # x_points = x.shape[-2]
-        # y_points = y.shape[-2]
         if x.dim() == 2:
             batch_size = 1
         else:
@@ -84,22 +81,25 @@ class SinkhornDistance(nn.Module):
         return cost, pi, C
 
     def M(self, C, u, v):
-        "Modified cost for logarithmic updates"
-        "$M_{ij} = (-c_{ij} + u_i + v_j) / \epsilon$"
-        print(u.size(), v.size(), C.size())
+        """
+        Modified cost for logarithmic updates
+        $M_{ij} = (-c_{ij} + u_i + v_j) / \epsilon$
+        """
         return (-C + u.unsqueeze(-1).to(self.device) + v.unsqueeze(-2).to(self.device)) / self.eps
 
     def _cost_matrix(self, x, y, batch_size=100):
-        "Returns the matrix of $|x_i-y_j|^p$."
+        """
+        Returns the matrix of $|x_i-y_j|^p$.
+        """
         if x.dim() == 2:
             if x.size(0) > batch_size:
                 nbatchx = int(np.floor(x.size(0) / batch_size))
                 nbatchy = int(np.floor(y.size(0) / batch_size))
-                print('nbatchx %d, nbatchy %d' % (nbatchx, nbatchy))
+                # print('nbatchx %d, nbatchy %d' % (nbatchx, nbatchy))
                 C = None
                 startx = 0
                 for i in range(nbatchx):
-                    print('i', i)
+                    # print('i', i)
                     batchx = x[startx: startx + batch_size]
                     Ci = None
                     starty = 0
