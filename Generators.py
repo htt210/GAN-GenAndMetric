@@ -23,11 +23,11 @@ def weights_init_conv(m):
 
 class Generator(nn.Module):
     def forward(self, *input):
-        pass
+        return input
 
 
 class MLPGenerator(Generator):
-    def __init__(self, nz, nx, nhidden, nhiddenlayer, negative_slope=0):
+    def __init__(self, nz, nx, nhidden, nhiddenlayer, negative_slope=1e-2):
         super(MLPGenerator, self).__init__()
         self.net = nn.Sequential()
         i = 0

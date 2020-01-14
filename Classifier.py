@@ -6,36 +6,77 @@ import torchvision.datasets as datasets
 import torchvision.transforms as transforms
 import torch.optim as optim
 import argparse
+import os
 
 
 class Classifier(nn.Module):
+
+    def nclasses(self):
+        pass
+
     def forward(self, *inputs):
         pass
 
 
-class MNISTClassifier(Classifier):
+class MNISTCNNClassifier(Classifier):
     def __init__(self):
-        super(MNISTClassifier, self).__init__()
+        super(MNISTCNNClassifier, self).__init__()
         self.conv1 = nn.Conv2d(1, 20, 5, 1)
         self.conv2 = nn.Conv2d(20, 50, 5, 1)
-        self.fc1 = nn.Linear(4 * 4 * 50, 500)
+        self.fc1 = nn.Linear(13 * 13 * 50, 500)
         self.fc2 = nn.Linear(500, 10)
 
+    def nclasses(self):
+        return 10
+
     def forward(self, x):
+        # print('input.size()', x.size())
         x = F.relu(self.conv1(x))
         x = F.max_pool2d(x, 2, 2)
         x = F.relu(self.conv2(x))
         x = F.max_pool2d(x, 2, 2)
-        x = x.view(-1, 4 * 4 * 50)
+        # print('max_pool2d', x.size())
+        x = x.view(-1, 13 * 13 * 50)
         x = F.relu(self.fc1(x))
         x = self.fc2(x)
+        # print('x.size()', x.size())
         return F.log_softmax(x, dim=1)
+
+
+class MNISTMNLPClassifier(Classifier):
+    def __init__(self):
+        super(MNISTMNLPClassifier, self).__init__()
+        nx = 28 * 28
+        nhidden = 256
+        self.nx = nx
+        self.nhidden = nhidden
+
+        self.net = nn.Sequential(
+            nn.Linear(nx, nhidden),
+            nn.LeakyReLU(negative_slope=1e-2),
+            nn.Linear(nhidden, nhidden),
+            nn.LeakyReLU(negative_slope=1e-2),
+            nn.Linear(nhidden, nhidden),
+            nn.LeakyReLU(negative_slope=1e-2),
+            nn.Linear(nhidden, 10),
+            nn.LogSoftmax(dim=1)
+        )
+
+    def nclasses(self):
+        return 10
+
+    def forward(self, inputs):
+        return self.net(inputs)
 
 
 def train(args, model, device, train_loader, optimizer, epoch):
     model.train()
     for batch_idx, (data, target) in enumerate(train_loader):
         data, target = data.to(device), target.to(device)
+        batch_size = data.size(0)
+        # print(data.size())
+        if args.arch == 'mlp':
+            data = data.view(batch_size, 28 * 28)
         optimizer.zero_grad()
         output = model(data)
         loss = F.nll_loss(output, target)
@@ -54,7 +95,12 @@ def test(args, model, device, test_loader):
     with torch.no_grad():
         for data, target in test_loader:
             data, target = data.to(device), target.to(device)
+            batch_size = data.size(0)
+            # print(data.size())
+            if args.arch == 'mlp':
+                data = data.view(batch_size, 28 * 28)
             output = model(data)
+            # print('output.size()', output.size())
             test_loss += F.nll_loss(output, target, reduction='sum').item()  # sum up batch loss
             pred = output.argmax(dim=1, keepdim=True)  # get the index of the max log-probability
             correct += pred.eq(target.view_as(pred)).sum().item()
@@ -69,11 +115,13 @@ def test(args, model, device, test_loader):
 def main():
     # Training settings
     parser = argparse.ArgumentParser(description='PyTorch MNIST Example')
+    parser.add_argument('--arch', type=str, default='mlp', help='architecture: mlp | cnn')
     parser.add_argument('--batch-size', type=int, default=64, metavar='N',
                         help='input batch size for training (default: 64)')
+    parser.add_argument('--img_size', type=int, default=64, help='image size')
     parser.add_argument('--test-batch-size', type=int, default=1000, metavar='N',
                         help='input batch size for testing (default: 1000)')
-    parser.add_argument('--epochs', type=int, default=10, metavar='N',
+    parser.add_argument('--epochs', type=int, default=20, metavar='N',
                         help='number of epochs to train (default: 10)')
     parser.add_argument('--lr', type=float, default=0.01, metavar='LR',
                         help='learning rate (default: 0.01)')
@@ -86,7 +134,7 @@ def main():
     parser.add_argument('--log-interval', type=int, default=10, metavar='N',
                         help='how many batches to wait before logging training status')
 
-    parser.add_argument('--save-model', action='store_true', default=False,
+    parser.add_argument('--save-model', action='store_true', default=True,
                         help='For Saving the current Model')
     args = parser.parse_args()
     use_cuda = not args.no_cuda and torch.cuda.is_available()
@@ -94,23 +142,47 @@ def main():
     torch.manual_seed(args.seed)
 
     device = torch.device("cuda" if use_cuda else "cpu")
-
     kwargs = {'num_workers': 1, 'pin_memory': True} if use_cuda else {}
-    train_loader = torch.utils.data.DataLoader(
-        datasets.MNIST('../data', train=True, download=True,
-                       transform=transforms.Compose([
-                           transforms.ToTensor(),
-                           transforms.Normalize((0.1307,), (0.3081,))
-                       ])),
-        batch_size=args.batch_size, shuffle=True, **kwargs)
-    test_loader = torch.utils.data.DataLoader(
-        datasets.MNIST('../data', train=False, transform=transforms.Compose([
-            transforms.ToTensor(),
-            transforms.Normalize((0.1307,), (0.3081,))
-        ])),
-        batch_size=args.test_batch_size, shuffle=True, **kwargs)
 
-    model = MNISTClassifier().to(device)
+    if args.arch == 'cnn':
+        print('CNN')
+        train_loader = torch.utils.data.DataLoader(
+            datasets.MNIST('~/github/data/mnist/', train=True, download=True,
+                           transform=transforms.Compose([
+                               transforms.Resize(args.img_size),
+                               transforms.ToTensor(),
+                               transforms.Normalize((0.5,), (0.5,))  # (0.1307,), (0.3081,))
+                           ])),
+            batch_size=args.batch_size, shuffle=True, **kwargs)
+        test_loader = torch.utils.data.DataLoader(
+            datasets.MNIST('~/github/data/mnist/', train=False, transform=transforms.Compose([
+                transforms.Resize(args.img_size),
+                transforms.ToTensor(),
+                transforms.Normalize((0.5,), (0.5,))  # (0.1307,), (0.3081,))
+            ])),
+            batch_size=args.test_batch_size, shuffle=True, **kwargs)
+        model = MNISTCNNClassifier().to(device)
+    elif args.arch == 'mlp':
+        print('MLP')
+        train_loader = torch.utils.data.DataLoader(
+            datasets.MNIST('~/github/data/mnist/', train=True, download=True,
+                           transform=transforms.Compose([
+                               # transforms.Resize(args.img_size),
+                               transforms.ToTensor(),
+                               transforms.Normalize((0.5,), (0.5,))  # (0.1307,), (0.3081,))
+                           ])),
+            batch_size=args.batch_size, shuffle=True, **kwargs)
+        test_loader = torch.utils.data.DataLoader(
+            datasets.MNIST('~/github/data/mnist/', train=False, transform=transforms.Compose([
+                # transforms.Resize(args.img_size),
+                transforms.ToTensor(),
+                transforms.Normalize((0.5,), (0.5,))  # (0.1307,), (0.3081,))
+            ])),
+            batch_size=args.test_batch_size, shuffle=True, **kwargs)
+        model = MNISTMNLPClassifier().to(device)
+    else:
+        print('Architecture not supported')
+
     optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=args.momentum)
 
     for epoch in range(1, args.epochs + 1):
@@ -118,7 +190,7 @@ def main():
         test(args, model, device, test_loader)
 
     if args.save_model:
-        torch.save(model.state_dict(), "mnist_cnn.pt")
+        torch.save(model.cpu(), os.path.expanduser("~/github/data/mnist/mnist_%s.t7" % args.arch))
 
 
 if __name__ == '__main__':

@@ -97,6 +97,32 @@ class MNISTDataset:
         return batch.to(device)
 
 
+class MNISTImageDataset:
+    def __init__(self, train=True, img_size=32):
+        dataloader = torch.utils.data.DataLoader(datasets.MNIST(root='~/github/data/mnist/', download=True,
+                                                                transform=transforms.Compose([
+                                                                    transforms.Resize(img_size),
+                                                                    transforms.ToTensor(),
+                                                                    transforms.Normalize((0.5,), (0.5,)),
+                                                                ]), train=train), shuffle=True, batch_size=1)
+        self.data = []
+        for i, (x, y) in enumerate(dataloader):
+            # print(type(x), len(x))
+            self.data.append(x)
+        self.loc = 0
+        self.n_samples = len(self.data)
+
+    def next_batch(self, batch_size, device):
+        if self.loc + batch_size > self.n_samples:
+            random.shuffle(self.data)
+            self.loc = 0
+
+        batch = self.data[self.loc: self.loc + batch_size]
+        self.loc += batch_size
+        batch = torch.cat(batch, 0)
+        return batch.to(device)
+
+
 class CIFAR10Dataset:
     def __init__(self, train=True, img_size=32):
         dataloader = torch.utils.data.DataLoader(datasets.CIFAR10(root='~/github/data/cifar10/', download=True,
@@ -106,8 +132,6 @@ class CIFAR10Dataset:
                                                                       transforms.Normalize((0.5, 0.5, 0.5),
                                                                                            (0.5, 0.5, 0.5)),
                                                                   ]), train=train), shuffle=True, batch_size=1)
-        self.data = []
-
         self.data = []
         for i, (x, y) in enumerate(dataloader):
             # print(type(x), len(x))
@@ -128,14 +152,12 @@ class CIFAR10Dataset:
 
 class FashionMNISTDataset:
     def __init__(self, train=True, img_size=32):
-        dataloader = torch.utils.data.DataLoader(datasets.FashionMNIST(root='~/github/data/mnist/', download=True,
+        dataloader = torch.utils.data.DataLoader(datasets.FashionMNIST(root='~/github/data/fashionmnist/', download=True,
                                                                        transform=transforms.Compose([
                                                                            transforms.Resize(img_size),
                                                                            transforms.ToTensor(),
                                                                            transforms.Normalize((0.5,), (0.5,)),
                                                                        ]), train=train), shuffle=True, batch_size=1)
-        self.data = []
-
         self.data = []
         for i, (x, y) in enumerate(dataloader):
             # print(type(x), len(x))
@@ -196,6 +218,8 @@ class CelebADataset:
 def load_dataset(dataset, args):
     if dataset == 'mnist':
         return MNISTDataset(train=True)
+    elif dataset == 'mnistImage':
+        return MNISTImageDataset(train=True, img_size=args.image_size)
     elif dataset == 'fashionMNIST':
         return FashionMNISTDataset(train=True, img_size=args.image_size)
     elif dataset == 'cifar10':

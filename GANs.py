@@ -6,8 +6,12 @@ import torchvision
 from Discriminators import *
 from Generators import *
 from Datasets import *
+# from catastrophic.MuInToy import *
 from Logger import *
+import MDL
+import Sinkhorn
 import pickle as pkl
+from Classifier import *
 
 
 def cal_grad_pen(G: Generator, D: Discriminator, real_batch, fake_batch, args):
@@ -48,7 +52,7 @@ def GAN(G: Generator, D: Discriminator, args):
     else:
         raise Exception('Not supported optimizer: ' + args.optimizer)
 
-    noise_data = NoiseDataset(distr=args.noise_dist, dim=args.noise_dim, is_image=args.is_image)
+    noise_data = NoiseDataset(distr=args.noise_dist, dim=args.noise_dim, is_image=not args.arch == 'mlp')
     real_data = load_dataset(args.dataset, args)
 
     criterion = nn.BCELoss()
@@ -56,74 +60,142 @@ def GAN(G: Generator, D: Discriminator, args):
     z_start = noise_data.next_batch(batch_size=32, device=args.device)
     z_end = noise_data.next_batch(batch_size=32, device=args.device)
 
-    fixed_real = real_data.next_batch(args.nrow * args.ncol, device=args.device)
-    fixed_noise = noise_data.next_batch(args.nrow * args.ncol, device=args.device)
-    fixed_fakes = []
-    fixed_fakes_scores = []
+    if args.is_image:
+        fixed_real = real_data.next_batch(args.nrow * args.ncol, device=args.device)
+        fixed_noise = noise_data.next_batch(args.nrow * args.ncol, device=args.device)
+        fixed_fakes = []
+        fixed_fakes_scores = []
+        noise_direction = torch.rand_like(fixed_real[0], device=args.device) if args.noise_direct else None
+        torchvision.utils.save_image(
+            fixed_real.view((args.nrow * args.ncol, args.nc, args.image_size, args.image_size)),
+            args.prefix + '/real.png', nrow=args.nrow, normalize=True)
+        noise_range = torch.arange(-args.noise_range, args.noise_range, step=args.noise_step,
+                                   device='cpu').view(-1).numpy()
+        for i in range(len(noise_range)):
+            noise_level = noise_range[i]
+            # print(noise_level)
+            real_noise = fixed_real + noise_level * noise_direction / noise_direction.norm()
+            torchvision.utils.save_image(
+                real_noise.view((args.nrow * args.ncol, args.nc, args.image_size, args.image_size)),
+                args.prefix + '/real_noise_%06d.png' % i, nrow=args.nrow, normalize=True)
+
     gen_time = [5000, 10000, 20000, -1]
     ffs_idx = [[] for _ in range(len(gen_time))]
     gen_idx = 0
-    noise_direction = torch.rand_like(fixed_real[0], device=args.device) if args.noise_direct else None
-    torchvision.utils.save_image(
-        fixed_real.view((args.nrow * args.ncol, args.nc, args.image_size, args.image_size)),
-        args.prefix + '/real.png', nrow=args.nrow, normalize=True)
-    noise_range = torch.arange(-args.noise_range, args.noise_range, step=args.noise_step,
-                               device='cpu').view(-1).numpy()
-    for i in range(len(noise_range)):
-        noise_level = noise_range[i]
-        # print(noise_level)
-        real_noise = fixed_real + noise_level * noise_direction / noise_direction.norm()
-        torchvision.utils.save_image(
-            real_noise.view((args.nrow * args.ncol, args.nc, args.image_size, args.image_size)),
-            args.prefix + '/real_noise_%05d.png' % i, nrow=args.nrow, normalize=True)
+
+    # mdl logging variables
+    wass_dists = []
+    path_lengths = []
+    its = []
+    classifier = None
 
     for it in range(args.niters):
         if it % 100 == 0:
             print('Iteration %d' % it)
 
-        if it == gen_time[gen_idx]:
+        if args.is_image and it == gen_time[gen_idx]:
             gen_idx += 1
             fixed_fakes.append(G(fixed_noise).data)
             torchvision.utils.save_image(
                 fixed_fakes[-1].view((args.nrow * args.ncol, args.nc, args.image_size, args.image_size)),
-                args.prefix + '/fixed_fake_%05d.png' % it, nrow=1, normalize=True)
+                args.prefix + '/fixed_fake_%06d.png' % it, nrow=1, normalize=True)
             fixed_fakes_scores.append([])
 
         if it % args.log_interval == 0:
-            print('Iteration %d' % it)
-
-            # calculate score for fixed fake
-            for ffi in range(len(fixed_fakes)):
-                ffs_idx[ffi].append(it)
-                fixed_fakes_scores[ffi].append(D(fixed_fakes[ffi]).data.cpu().numpy())
-                print(it, fixed_fakes_scores[ffi][-1][1][0], 'hey')
+            its.append(it)
+            print('Loggin Iteration %d' % it)
 
             if args.show_grad:
                 disp_grad(G, D, noise_data, real_data, criterion, it, args)
                 disp_map(G, D, noise_data, real_data, criterion, it, args)
                 disp_path(G, D, noise_data, real_data, z_start, z_end, criterion, it, args)
-            if args.show_maxima:
-                _, _, scores = compute_extrema(D, fixed_real, noise_direction, args.noise_range, args.noise_step)
-                disp_extrema(scores, args.prefix + '/extrema_%05d.pdf' % it,
-                             args.noise_range, args.noise_step, args.nrow, args.ncol)
-                with open(args.prefix + '/extrema.txt', 'a') as f:
-                    f.write('Iteration:' + str(it) + '\n' + str(scores) + '\n')
 
-                with torch.no_grad():
-                    fixed_fake = G(fixed_noise)
-                    torchvision.utils.save_image(
-                        fixed_fake.view((args.nrow * args.ncol, args.nc, args.image_size, args.image_size)),
-                        args.prefix + '/fake_%05d.png' % it, nrow=args.nrow, normalize=True)
-                    _, _, scores = compute_extrema(D, fixed_fake, noise_direction, args.noise_range, args.noise_step)
-                    disp_extrema(scores, args.prefix + '/extrema_fake_%05d.pdf' % it,
+            if args.is_image:
+                # calculate score for fixed fake
+                for ffi in range(len(fixed_fakes)):
+                    ffs_idx[ffi].append(it)
+                    fixed_fakes_scores[ffi].append(D(fixed_fakes[ffi]).data.cpu().numpy())
+                    print(it, fixed_fakes_scores[ffi][-1][1][0], 'hey')
+
+                if args.show_maxima:
+                    _, _, scores = compute_extrema(D, fixed_real, noise_direction, args.noise_range, args.noise_step)
+                    disp_extrema(scores, args.prefix + '/extrema_%06d.pdf' % it,
                                  args.noise_range, args.noise_step, args.nrow, args.ncol)
-                    with open(args.prefix + '/extrema_fake.txt', 'a') as f:
+                    with open(args.prefix + '/extrema.txt', 'a') as f:
                         f.write('Iteration:' + str(it) + '\n' + str(scores) + '\n')
+
+                    with torch.no_grad():
+                        fixed_fake = G(fixed_noise)
+                        torchvision.utils.save_image(
+                            fixed_fake.view((args.nrow * args.ncol, args.nc, args.image_size, args.image_size)),
+                            args.prefix + '/fake_%06d.png' % it, nrow=args.nrow, normalize=True)
+                        _, _, scores = compute_extrema(D, fixed_fake, noise_direction, args.noise_range,
+                                                       args.noise_step)
+                        disp_extrema(scores, args.prefix + '/extrema_fake_%06d.pdf' % it,
+                                     args.noise_range, args.noise_step, args.nrow, args.ncol)
+                        with open(args.prefix + '/extrema_fake.txt', 'a') as f:
+                            f.write('Iteration:' + str(it) + '\n' + str(scores) + '\n')
+
+            if args.mdl:
+                if classifier is None:
+                    print('loading classifier')
+                    try:
+                        classifier = torch.load(os.path.expanduser(args.classifier))
+                        classifier.to(args.device)
+                    except Exception as e:
+                        print('Cannot load classifier\n', e)
+                print('Computing MDL')
+                print('Fake data path length')
+                # compute fake data path length
+                dists_list = []
+                start_labels_list = []
+                end_labels_list = []
+                for i in range(args.nbatch):
+                    # compute path length for 100 mini batches
+                    z_starti = noise_data.next_batch(batch_size=args.batch_size, device=args.device)
+                    z_endi = noise_data.next_batch(batch_size=args.batch_size, device=args.device)
+                    dists, start_labels, end_labels = MDL.data_path_length(z_start=z_starti, z_end=z_endi,
+                                                                           interpolation_method=MDL.slerp,
+                                                                           n_steps=args.n_steps, p=args.p, G=G, D=D,
+                                                                           classifier=classifier)
+                    # print('dist', i, dists.mean())
+                    dists_list.append(dists)
+                    start_labels_list.append(start_labels)
+                    end_labels_list.append(end_labels)
+                dists = torch.cat(dists_list, dim=0)
+                dist_mean = dists.mean().item()
+                path_lengths.append(dist_mean)
+                start_labels = torch.cat(start_labels_list, dim=0)
+                end_labels = torch.cat(end_labels_list, dim=0)
+                class_len, len_mat = MDL.class_pair_path_length(dists=dists, start_labels=start_labels,
+                                                                end_labels=end_labels, nclasses=classifier.nclasses())
+                with open(args.prefix + '/class_len.txt', 'a') as clf:
+                    clf.write('It_%06d_%f\n' % (it, dist_mean))
+                    clf.write(str(class_len) + '\n')
+                disp_mat(len_mat, args.prefix + '/len_mat_%06d.png' % it)
+                # plt.figure()
+                # plt.imshow(len_mat)
+                # plt.show(5)
+
+                print('Sinkhorn distance')
+                # x = None
+                # y = None
+                shdist, shP, shC = Sinkhorn.point_cloud_dist_g(G=G, noise_data=noise_data, real_data=real_data,
+                                                               n_samples=args.nbatch * args.batch_size,
+                                                               batch_size=args.batch_size, eps=args.sheps, p=args.shp,
+                                                               max_iter=args.shmaxiter, device=args.device)
+                print('Sinkhorn dist', shdist)
+                wass_dists.append(shdist.item())
+                # display the trajectory
+                with open(args.prefix + '/sinkhorn_dist.txt', 'a') as shf:
+                    shf.write('It_%06d_%f\n' % (it, shdist))
+                disp_mdl(path_length=path_lengths, wass_dist=wass_dists, it=its,
+                         outfile=args.prefix + '/mdl_%06d.pdf' % it)
 
         if it % args.save_model == args.save_model - 1:
             print('Saving model')
-            torch.save(G, args.prefix + '/G_%05d.t7' % it)
-            torch.save(D, args.prefix + '/D_%05d.t7' % it)
+            torch.save(G, args.prefix + '/G_%06d.t7' % it)
+            torch.save(D, args.prefix + '/D_%06d.t7' % it)
 
         # train D for nd iterations
         for i in range(args.nd):
@@ -169,7 +241,7 @@ def GAN(G: Generator, D: Discriminator, args):
         for i in range(nimg):
             ffax[i].plot(ffs_idx[idx], ffs[:, i])
             ffax[i].set_ylim(-0.1, 1.1)
-        plt.savefig(args.prefix + '/fixed_fake_scores_%05d.pdf' % gi, bbox_inches='tight')
+        plt.savefig(args.prefix + '/fixed_fake_scores_%06d.pdf' % gi, bbox_inches='tight')
 
     return G, D
 
@@ -214,7 +286,7 @@ def WGAN(G: Generator, D: Discriminator, args):
             real_noise = fixed_real + noise_level * noise_direction / noise_direction.norm()
             torchvision.utils.save_image(
                 real_noise.view((args.nrow * args.ncol, args.nc, args.image_size, args.image_size)),
-                args.prefix + '/real_noise_%05d.png' % i, nrow=args.nrow, normalize=True)
+                args.prefix + '/real_noise_%06d.png' % i, nrow=args.nrow, normalize=True)
 
     for it in range(args.niters):
         if it % 100 == 0:
@@ -227,7 +299,7 @@ def WGAN(G: Generator, D: Discriminator, args):
                 disp_path(G, D, noise_data, real_data, z_start, z_end, criterion, it, args)
             if args.show_maxima:
                 _, _, scores = compute_extrema(D, fixed_real, noise_direction, args.noise_range, args.noise_step)
-                disp_extrema(scores, args.prefix + '/extrema_%05d.pdf' % it,
+                disp_extrema(scores, args.prefix + '/extrema_%06d.pdf' % it,
                              args.noise_range, args.noise_step, args.nrow, args.ncol)
                 with open(args.prefix + '/extrema.txt', 'a') as f:
                     f.write('Iteration:' + str(it) + '\n' + str(scores) + '\n')
@@ -236,17 +308,17 @@ def WGAN(G: Generator, D: Discriminator, args):
                     fixed_fake = G(fixed_noise)
                     torchvision.utils.save_image(
                         fixed_fake.view((args.nrow * args.ncol, args.nc, args.image_size, args.image_size)),
-                        args.prefix + '/fake_%05d.png' % it, nrow=args.nrow, normalize=True)
+                        args.prefix + '/fake_%06d.png' % it, nrow=args.nrow, normalize=True)
                     _, _, scores = compute_extrema(D, fixed_fake, noise_direction, args.noise_range, args.noise_step)
-                    disp_extrema(scores, args.prefix + '/extrema_fake_%05d.pdf' % it,
+                    disp_extrema(scores, args.prefix + '/extrema_fake_%06d.pdf' % it,
                                  args.noise_range, args.noise_step, args.nrow, args.ncol)
                     with open(args.prefix + '/extrema_fake.txt', 'a') as f:
                         f.write('Iteration:' + str(it) + '\n' + str(scores) + '\n')
 
         if it % args.save_model == args.save_model - 1:
             print('Saving model')
-            torch.save(G, args.prefix + '/G_%05d.t7' % it)
-            torch.save(D, args.prefix + '/D_%05d.t7' % it)
+            torch.save(G, args.prefix + '/G_%06d.t7' % it)
+            torch.save(D, args.prefix + '/D_%06d.t7' % it)
 
         # train D for nd iterations
         for p in D.parameters():

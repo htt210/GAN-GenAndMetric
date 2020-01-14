@@ -2,24 +2,25 @@ import torch
 import torch.autograd as ag
 import matplotlib
 import numpy as np
-matplotlib.use('Agg')
+
+# matplotlib.use('Agg')
 from matplotlib import pyplot as plt
 from matplotlib import cm
+from matplotlib.collections import LineCollection
+from matplotlib.colors import ListedColormap, BoundaryNorm
 
 from Discriminators import *
 from Generators import *
 from Datasets import *
 
 # variables
-grad_fig, grad_ax = plt.subplots(1, 1, figsize=(4, 4))
-plt.draw()
-map_fig, map_ax = plt.subplots(1, 1, figsize=(4, 4))
-plt.draw()
-path_fig, path_ax = plt.subplots(1, 1, figsize=(4, 4))
-plt.draw()
+# colors = plt.cm.jet(np.linspace(0, 1, 10))
+markers = [".", ",", "o", "v", "^", "<", ">", "1", "2", "3", "4", "8", "s", "p", "P", "*", "h", "H", "+", "x"]
 
 
-def disp_grad(G: Generator, D: Discriminator, noise_data: NoiseDataset, real_data: ToyMissingDataset, criterion, it, args):
+def disp_grad(G: Generator, D: Discriminator, noise_data: NoiseDataset, real_data: ToyMissingDataset, criterion, it,
+              args):
+    grad_fig, grad_ax = plt.subplots(1, 1, figsize=(4, 4))
     plt.figure(grad_fig.number)
     grad_ax.clear()
 
@@ -70,7 +71,9 @@ def disp_grad(G: Generator, D: Discriminator, noise_data: NoiseDataset, real_dat
     return coord, grad
 
 
-def disp_map(G: Generator, D: Discriminator, noise_data: NoiseDataset, real_data: ToyMissingDataset, criterion, it, args):
+def disp_map(G: Generator, D: Discriminator, noise_data: NoiseDataset, real_data: ToyMissingDataset, criterion, it,
+             args):
+    map_fig, map_ax = plt.subplots(1, 1, figsize=(4, 4))
     plt.figure(map_fig.number)
     map_ax.clear()
 
@@ -177,6 +180,7 @@ def comp_path_length(G: Generator, D: Discriminator, z_list, args):
 
 def disp_path(G: Generator, D: Discriminator, noise_data: NoiseDataset, real_data: ToyMissingDataset,
               z_start, z_end, criterion, it, args):
+    path_fig, path_ax = plt.subplots(1, 1, figsize=(4, 4))
     plt.figure(path_fig.number)
     path_ax.clear()
 
@@ -212,7 +216,6 @@ def disp_path(G: Generator, D: Discriminator, noise_data: NoiseDataset, real_dat
 
     plt.savefig(args.prefix + '/path_%05d.pdf' % it, bbox_inches='tight')
     plt.draw()
-    plt.pause(0.1)
 
 
 def compute_extrema(D: Discriminator, xs, noise=None, noise_range=5, noise_step=0.1):
@@ -263,3 +266,52 @@ def disp_extrema(scores, outfile, noise_range=5, noise_step=0.1, nrow=8, ncol=8)
         axes[row][col].plot(noise_range, scores[i], 'r-')
     plt.savefig(outfile, bbox_inches='tight')
     plt.close(fig)
+
+
+def disp_mdl(path_length, wass_dist, it, outfile):
+    print(path_length)
+    print(wass_dist)
+    print(it)
+    colors = plt.cm.jet(np.linspace(0, 1, len(it)))[:, :3]
+    print(colors.shape)
+    mdl_fig, mdl_ax = plt.subplots(nrows=1, ncols=1, figsize=(5.5, 4))
+
+    # for i in range(len(path_length) - 1):
+    #     mdl_ax.plot(path_length[i:i+2], wass_dist[i:i+2], color=colors[i], zorder=1)
+    # points = np.array([path_length, wass_dist]).T.reshape(-1, 1, 2)
+    # segments = np.concatenate([points[:-1], points[1:]], axis=1)
+    # cmap = ListedColormap(colors)
+    # norm = BoundaryNorm([-1, -0.5, 0.5, 1], cmap.N)
+    # lc = LineCollection(segments=segments, cmap=cmap, norm=norm)
+    # mdl_ax.add_collection(lc)
+
+    sc = mdl_ax.scatter(path_length, wass_dist, color=colors, edgecolors='face', zorder=2)
+    mdl_ax.plot(path_length, wass_dist, zorder=1)
+    sc.set_array(np.array(it))
+    plt.colorbar(sc)
+    plt.xlabel('Path length')
+    plt.ylabel('Wasserstein distance')
+    # plt.show()
+    plt.savefig(outfile, bbox_inches='tight')
+    plt.close(mdl_fig)
+
+
+def disp_mdl_multi(path_series, wass_series, it, labels, outfile):
+    mm_fig, mm_ax = plt.subplots(nrows=1, ncols=1, figsize=(10, 8))
+
+    for path, wass, label in zip(path_series, wass_series, labels, markers):
+        mm_ax.plot(path, wass, label=label)
+
+    plt.xlabel('Path length')
+    plt.ylabel('Wasserstein distance')
+    plt.savefig(outfile, bbox_inches='tight')
+    plt.close(mm_fig)
+
+
+def disp_mat(mat, outfile):
+    mat_fig, mat_ax = plt.subplots(1, 1, figsize=(5, 4))
+    mat_ax.clear()
+    m = mat_ax.imshow(mat)
+    mat_fig.colorbar(m, ax=mat_ax)
+    plt.savefig(outfile, bbox_inches='tight')
+    plt.close(mat_fig)

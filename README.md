@@ -1,3 +1,10 @@
 # GAN-GenAndMetric
 
-Project on Gan generalization and metric.
+Project on GANs generalization and metric.
+
+## Requirements
+```text
+Python 3.6
+Pytorch 0.4
+```
+
