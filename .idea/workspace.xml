@@ -2,23 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9465497e-818e-47ba-985b-46312f5b51df" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/runMDLWGAN0GP.sh" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/wassdistance/MNIST_Wasserstein.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/catastrophic/MainExtrema.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/catastrophic/MainImage.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/catastrophic/MainMNIST.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/catastrophic/MainToy.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/catastrophic/MuInToy.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/catastrophic/run.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/catastrophic/runCIFAR10_GAN0GP.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/catastrophic/runCIFAR10_GAN0GP_Imbalanced_10_1.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/catastrophic/runCIFAR10_GANNS.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/catastrophic/runCIFAR10_GANNS_Imbalanced_10_1.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/catastrophic/runCIFAR10_GANR1.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/catastrophic/runCelebA_GAN0GP.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/catastrophic/runCelebA_GANNS.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/catastrophic/runCelebA_GANR1.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/runMDL0GP.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runMDL0GP.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runMDLR1.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runMDLR1.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runMDLWGAN0GP.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runMDLWGAN0GP.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runMDLWGANGP.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runMDLWGANGP.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wassdistance/layers.py" beforeDir="false" afterPath="$PROJECT_DIR$/wassdistance/layers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wassdistance/sinkhorn.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/wassdistance/sinkhorn.ipynb" afterDir="false" />
     </list>
@@ -53,12 +42,12 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/catastrophic" />
       <recent name="$PROJECT_DIR$/wassdistance" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="RunManager" selected="Python.MainMDLMLP">
