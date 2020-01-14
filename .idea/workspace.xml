@@ -3,11 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="9465497e-818e-47ba-985b-46312f5b51df" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/wassdistance/MNIST_Wasserstein.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runMDL0GP.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runMDL0GP.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runMDLR1.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runMDLR1.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runMDLWGAN0GP.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runMDLWGAN0GP.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runMDLWGANGP.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runMDLWGANGP.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logger.py" beforeDir="false" afterPath="$PROJECT_DIR$/Logger.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wassdistance/layers.py" beforeDir="false" afterPath="$PROJECT_DIR$/wassdistance/layers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wassdistance/sinkhorn.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/wassdistance/sinkhorn.ipynb" afterDir="false" />
     </list>

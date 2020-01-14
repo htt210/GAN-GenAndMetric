@@ -3,7 +3,7 @@ import torch.autograd as ag
 import matplotlib
 import numpy as np
 
-# matplotlib.use('Agg')
+matplotlib.use('Agg')
 from matplotlib import pyplot as plt
 from matplotlib import cm
 from matplotlib.collections import LineCollection
