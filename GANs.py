@@ -191,6 +191,9 @@ def GAN(G: Generator, D: Discriminator, args):
                     shf.write('It_%06d_%f\n' % (it, shdist))
                 disp_mdl(path_length=path_lengths, wass_dist=wass_dists, it=its,
                          outfile=args.prefix + '/mdl_%06d.pdf' % it)
+                with open(args.prefix + '/mdl.txt', 'w') as mdlf:
+                    for i, w, d in zip(its, wass_dists, path_lengths):
+                        mdlf.write('%d, %f, %f\n' % (i, w, d))
 
         if it % args.save_model == args.save_model - 1:
             print('Saving model')
