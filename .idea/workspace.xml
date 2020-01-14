@@ -2,39 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9465497e-818e-47ba-985b-46312f5b51df" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MainMDLCNN.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MainMDLMLP.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Sinkhorn.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/catastrophic/MuInToy.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runMDL0GP.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runMDLR1.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runMDLWGANGP.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/runMDLWGAN0GP.sh" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/wassdistance/MNIST_Wasserstein.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/GanBeyondCode.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/GanBeyondCode.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classifier.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classifier.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets.py" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GANs.py" beforeDir="false" afterPath="$PROJECT_DIR$/GANs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Generators.py" beforeDir="false" afterPath="$PROJECT_DIR$/Generators.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logger.py" beforeDir="false" afterPath="$PROJECT_DIR$/Logger.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MDL.py" beforeDir="false" afterPath="$PROJECT_DIR$/MDL.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainExtrema.py" beforeDir="false" afterPath="$PROJECT_DIR$/catastrophic/MainExtrema.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainImage.py" beforeDir="false" afterPath="$PROJECT_DIR$/catastrophic/MainImage.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainMNIST.py" beforeDir="false" afterPath="$PROJECT_DIR$/catastrophic/MainMNIST.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainToy.py" beforeDir="false" afterPath="$PROJECT_DIR$/catastrophic/MainToy.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run.sh" beforeDir="false" afterPath="$PROJECT_DIR$/catastrophic/run.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runCIFAR10_GAN0GP.sh" beforeDir="false" afterPath="$PROJECT_DIR$/catastrophic/runCIFAR10_GAN0GP.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runCIFAR10_GAN0GP_Imbalanced_10_1.sh" beforeDir="false" afterPath="$PROJECT_DIR$/catastrophic/runCIFAR10_GAN0GP_Imbalanced_10_1.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runCIFAR10_GANNS.sh" beforeDir="false" afterPath="$PROJECT_DIR$/catastrophic/runCIFAR10_GANNS.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runCIFAR10_GANNS_Imbalanced_10_1.sh" beforeDir="false" afterPath="$PROJECT_DIR$/catastrophic/runCIFAR10_GANNS_Imbalanced_10_1.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runCIFAR10_GANR1.sh" beforeDir="false" afterPath="$PROJECT_DIR$/catastrophic/runCIFAR10_GANR1.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runCelebA_GAN0GP.sh" beforeDir="false" afterPath="$PROJECT_DIR$/catastrophic/runCelebA_GAN0GP.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runCelebA_GANNS.sh" beforeDir="false" afterPath="$PROJECT_DIR$/catastrophic/runCelebA_GANNS.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runCelebA_GANR1.sh" beforeDir="false" afterPath="$PROJECT_DIR$/catastrophic/runCelebA_GANR1.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catastrophic/MainExtrema.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/catastrophic/MainImage.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/catastrophic/MainMNIST.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/catastrophic/MainToy.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/catastrophic/MuInToy.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/catastrophic/run.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/catastrophic/runCIFAR10_GAN0GP.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/catastrophic/runCIFAR10_GAN0GP_Imbalanced_10_1.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/catastrophic/runCIFAR10_GANNS.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/catastrophic/runCIFAR10_GANNS_Imbalanced_10_1.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/catastrophic/runCIFAR10_GANR1.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/catastrophic/runCelebA_GAN0GP.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/catastrophic/runCelebA_GANNS.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/catastrophic/runCelebA_GANR1.sh" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/wassdistance/layers.py" beforeDir="false" afterPath="$PROJECT_DIR$/wassdistance/layers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wassdistance/sinkhorn.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/wassdistance/sinkhorn.ipynb" afterDir="false" />
     </list>
