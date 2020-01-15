@@ -16,7 +16,7 @@ from GANs import *
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     # architecture and hyper parameters
-    parser.add_argument('-root', type=str, default='gangen', help='root folder for storing outputs')
+    parser.add_argument('-root', type=str, default='gangentest', help='root folder for storing outputs')
     parser.add_argument('-loss', type=str, default='gan', help='loss function: gan | wgan')
     parser.add_argument('-arch', type=str, default='mlp', help='architecture: mlp | dcgan')
     parser.add_argument('-dataset', type=str, default='mnist',
