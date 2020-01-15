@@ -197,6 +197,8 @@ def GAN(G: Generator, D: Discriminator, args):
                     shf.write('It_%06d_%f\n' % (it, shdist))
                 disp_mdl(path_length=path_lengths, wass_dist=wass_dists, it=its,
                          outfile=args.prefix + '/mdl_%06d.pdf' % it)
+                disp_mdl(path_length=path_lengths, wass_dist=wass_disttes, it=its,
+                         outfile=args.prefix + '/mdl_test_%06d.pdf' % it)
                 with open(args.prefix + '/mdl.txt', 'w') as mdlf:
                     for i, w, wte, d in zip(its, wass_dists, wass_disttes, path_lengths):
                         mdlf.write('%d, %f, %f, %f\n' % (i, w, wte, d))
