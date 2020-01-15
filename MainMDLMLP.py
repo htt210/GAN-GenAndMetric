@@ -80,7 +80,7 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
     print(args)
-    prefix = os.path.expanduser('~/github/figs/gangen_local/')
+    prefix = os.path.expanduser('~/github/figs/gangen/')
     if not os.path.exists(prefix):
         os.mkdir(prefix)
     prefix = prefix + args.loss + '_' + args.arch + '_' + args.dataset + '_'
