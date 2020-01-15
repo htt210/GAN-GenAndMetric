@@ -13,7 +13,7 @@ W2 is (approximately) computed using a Sinkhorn solver.
 The complexity of a model is defined as the complexity of the model's distribution. That is in turn defined as the
  expected length of the path connecting two random samples.  
 ```text
-C = W2(p_g, p_r) + E_{p_g}[len(x_1, x_2)] 
+C = W2(p_g, p_r) * E_{p_g}[len(x_1, x_2)] 
 where p_g, p_r are the model's and the target distributions.  
 ```
 
