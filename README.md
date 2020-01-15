@@ -16,6 +16,9 @@ The complexity of a model is defined as the complexity of the model's distributi
 C = W2(p_g, p_r) + E_{p_g}[len(x_1, x_2)] 
 where p_g, p_r are the model's and the target distributions.  
 ```
+
+This metric was initially developed for GANs but it can be applied to other generative latent variable models such as 
+VAEs as well. 
 ## Requirements
 ```text
 Python 3.6
