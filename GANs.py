@@ -69,7 +69,7 @@ def GAN(G: Generator, D: Discriminator, args):
         noise_direction = torch.rand_like(fixed_real[0], device=args.device) if args.noise_direct else None
         torchvision.utils.save_image(
             fixed_real.view((args.nrow * args.ncol, args.nc, args.image_size, args.image_size)),
-            args.prefix + '/real.png', nrow=args.nrow, normalize=True)
+            args.prefix + '/real.png', nrow=args.nrow, normalize=args.nc != 1)
         noise_range = torch.arange(-args.noise_range, args.noise_range, step=args.noise_step,
                                    device='cpu').view(-1).numpy()
         for i in range(len(noise_range)):
@@ -78,7 +78,7 @@ def GAN(G: Generator, D: Discriminator, args):
             real_noise = fixed_real + noise_level * noise_direction / noise_direction.norm()
             torchvision.utils.save_image(
                 real_noise.view((args.nrow * args.ncol, args.nc, args.image_size, args.image_size)),
-                args.prefix + '/real_noise_%06d.png' % i, nrow=args.nrow, normalize=True)
+                args.prefix + '/real_noise_%06d.png' % i, nrow=args.nrow, normalize=args.nc != 1)
 
     gen_time = [5000, 10000, 20000, -1]
     ffs_idx = [[] for _ in range(len(gen_time))]
@@ -100,7 +100,7 @@ def GAN(G: Generator, D: Discriminator, args):
             fixed_fakes.append(G(fixed_noise).data)
             torchvision.utils.save_image(
                 fixed_fakes[-1].view((args.nrow * args.ncol, args.nc, args.image_size, args.image_size)),
-                args.prefix + '/fixed_fake_%06d.png' % it, nrow=1, normalize=True)
+                args.prefix + '/fixed_fake_%06d.png' % it, nrow=1, normalize=args.nc != 1)
             fixed_fakes_scores.append([])
 
         if it % args.log_interval == 0:
@@ -130,7 +130,7 @@ def GAN(G: Generator, D: Discriminator, args):
                         fixed_fake = G(fixed_noise)
                         torchvision.utils.save_image(
                             fixed_fake.view((args.nrow * args.ncol, args.nc, args.image_size, args.image_size)),
-                            args.prefix + '/fake_%06d.png' % it, nrow=args.nrow, normalize=True)
+                            args.prefix + '/fake_%06d.png' % it, nrow=args.nrow, normalize=args.nc != 1)
                         _, _, scores = compute_extrema(D, fixed_fake, noise_direction, args.noise_range,
                                                        args.noise_step)
                         disp_extrema(scores, args.prefix + '/extrema_fake_%06d.pdf' % it,
