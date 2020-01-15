@@ -54,6 +54,7 @@ def GAN(G: Generator, D: Discriminator, args):
 
     noise_data = NoiseDataset(distr=args.noise_dist, dim=args.noise_dim, is_image=not args.arch == 'mlp')
     real_data = load_dataset(args.dataset, args)
+    test_data = load_dataset(args.dataset, args, train=False)
 
     criterion = nn.BCELoss()
 
@@ -85,6 +86,7 @@ def GAN(G: Generator, D: Discriminator, args):
 
     # mdl logging variables
     wass_dists = []
+    wass_disttes = []
     path_lengths = []
     its = []
     classifier = None
@@ -115,7 +117,7 @@ def GAN(G: Generator, D: Discriminator, args):
                 for ffi in range(len(fixed_fakes)):
                     ffs_idx[ffi].append(it)
                     fixed_fakes_scores[ffi].append(D(fixed_fakes[ffi]).data.cpu().numpy())
-                    print(it, fixed_fakes_scores[ffi][-1][1][0], 'hey')
+                    print(it, 'fixed fake score', fixed_fakes_scores[ffi][-1][1][0])
 
                 if args.show_maxima:
                     _, _, scores = compute_extrema(D, fixed_real, noise_direction, args.noise_range, args.noise_step)
@@ -158,7 +160,6 @@ def GAN(G: Generator, D: Discriminator, args):
                                                                            interpolation_method=MDL.slerp,
                                                                            n_steps=args.n_steps, p=args.p, G=G, D=D,
                                                                            classifier=classifier)
-                    # print('dist', i, dists.mean())
                     dists_list.append(dists)
                     start_labels_list.append(start_labels)
                     end_labels_list.append(end_labels)
@@ -178,22 +179,27 @@ def GAN(G: Generator, D: Discriminator, args):
                 # plt.show(5)
 
                 print('Sinkhorn distance')
-                # x = None
-                # y = None
                 shdist, shP, shC = Sinkhorn.point_cloud_dist_g(G=G, noise_data=noise_data, real_data=real_data,
                                                                n_samples=args.nbatch * args.batch_size,
                                                                batch_size=args.batch_size, eps=args.sheps, p=args.shp,
                                                                max_iter=args.shmaxiter, device=args.device)
-                print('Sinkhorn dist', shdist)
+                print('Train', shdist)
+                shdistte, shPte, shCte = Sinkhorn.point_cloud_dist_g(G=G, noise_data=noise_data, real_data=test_data,
+                                                                     n_samples=args.nbatch * args.batch_size,
+                                                                     batch_size=args.batch_size, eps=args.sheps,
+                                                                     p=args.shp,
+                                                                     max_iter=args.shmaxiter, device=args.device)
+                print('Test', shdistte)
                 wass_dists.append(shdist.item())
+                wass_disttes.append(shdistte.item())
                 # display the trajectory
                 with open(args.prefix + '/sinkhorn_dist.txt', 'a') as shf:
                     shf.write('It_%06d_%f\n' % (it, shdist))
                 disp_mdl(path_length=path_lengths, wass_dist=wass_dists, it=its,
                          outfile=args.prefix + '/mdl_%06d.pdf' % it)
                 with open(args.prefix + '/mdl.txt', 'w') as mdlf:
-                    for i, w, d in zip(its, wass_dists, path_lengths):
-                        mdlf.write('%d, %f, %f\n' % (i, w, d))
+                    for i, w, wte, d in zip(its, wass_dists, wass_disttes, path_lengths):
+                        mdlf.write('%d, %f, %f, %f\n' % (i, w, wte, d))
 
         if it % args.save_model == args.save_model - 1:
             print('Saving model')
@@ -257,7 +263,6 @@ def GAN(G: Generator, D: Discriminator, args):
         plt.savefig(args.prefix + '/fixed_fake_scores_%06d.pdf' % gi, bbox_inches='tight')
 
     return G, D
-
 
 # def WGAN(G: Generator, D: Discriminator, args):
 #     D.to(args.device)

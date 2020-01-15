@@ -215,15 +215,15 @@ class CelebADataset:
         return batch[0].to(device)
 
 
-def load_dataset(dataset, args):
+def load_dataset(dataset, args, train=True):
     if dataset == 'mnist':
-        return MNISTDataset(train=True)
+        return MNISTDataset(train=train)
     elif dataset == 'mnistImage':
-        return MNISTImageDataset(train=True, img_size=args.image_size)
+        return MNISTImageDataset(train=train, img_size=args.image_size)
     elif dataset == 'fashionMNIST':
-        return FashionMNISTDataset(train=True, img_size=args.image_size)
+        return FashionMNISTDataset(train=train, img_size=args.image_size)
     elif dataset == 'cifar10':
-        return CIFAR10Dataset(train=True, img_size=args.image_size)
+        return CIFAR10Dataset(train=train, img_size=args.image_size)
     elif dataset == 'celeba':
         return CelebADataset(image_size=args.image_size, batch_size=args.batch_size)
     else:

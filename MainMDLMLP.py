@@ -128,13 +128,4 @@ if __name__ == '__main__':
 
     print(G)
     print(D)
-
-    # if args.loss == 'gan':
-    #     GAN(G, D, args)
-    # elif args.loss == 'wgan':
-    #     WGAN(G, D, args)
-    # else:
-    #     raise Exception('Loss function not supported')
     GAN(G, D, args)
-    torch.save(G, prefix + '/G.t7')
-    torch.save(D, prefix + '/D.t7')
