@@ -2,7 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9465497e-818e-47ba-985b-46312f5b51df" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/MainMDLResNet.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model_resnet.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spectral_normalization.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GANs.py" beforeDir="false" afterPath="$PROJECT_DIR$/GANs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runMDL0GP500k.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runMDL0GP500k.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runMDLR1500k.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runMDLR1500k.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runMDLWGAN0GP500k.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runMDLWGAN0GP500k.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runMDLWGANGP500k.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runMDLWGANGP500k.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wassdistance/MNIST_Wasserstein.py" beforeDir="false" afterPath="$PROJECT_DIR$/wassdistance/MNIST_Wasserstein.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,12 +44,12 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/catastrophic" />
       <recent name="$PROJECT_DIR$/wassdistance" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="RunManager" selected="Python.MainMDLMLP">
@@ -251,30 +260,31 @@
       <screen x="0" y="0" width="1200" height="760" />
     </state>
     <state x="257" y="0" key="CommitChangelistDialog2/0.0.1200.760@0.0.1200.760" timestamp="1575949823799" />
-    <state x="779" y="297" width="424" height="482" key="FileChooserDialogImpl" timestamp="1577667651640">
-      <screen x="65" y="24" width="1855" height="1056" />
+    <state x="779" y="328" width="424" height="482" key="FileChooserDialogImpl" timestamp="1579067813754">
+      <screen x="65" y="24" width="1855" height="1176" />
     </state>
     <state x="779" y="297" width="424" height="482" key="FileChooserDialogImpl/65.24.1855.1056@65.24.1855.1056" timestamp="1577667651639" />
-    <state width="1832" height="439" key="GridCell.Tab.0.bottom" timestamp="1579066509419">
+    <state x="779" y="328" key="FileChooserDialogImpl/65.24.1855.1176@65.24.1855.1176" timestamp="1579067813754" />
+    <state width="1832" height="439" key="GridCell.Tab.0.bottom" timestamp="1579066595021">
       <screen x="65" y="24" width="1855" height="1176" />
     </state>
     <state width="1832" height="295" key="GridCell.Tab.0.bottom/65.24.1855.1056@65.24.1855.1056" timestamp="1578923155035" />
-    <state width="1832" height="439" key="GridCell.Tab.0.bottom/65.24.1855.1176@65.24.1855.1176" timestamp="1579066509419" />
-    <state width="1832" height="439" key="GridCell.Tab.0.center" timestamp="1579066509419">
+    <state width="1832" height="439" key="GridCell.Tab.0.bottom/65.24.1855.1176@65.24.1855.1176" timestamp="1579066595021" />
+    <state width="1832" height="439" key="GridCell.Tab.0.center" timestamp="1579066595020">
       <screen x="65" y="24" width="1855" height="1176" />
     </state>
     <state width="1832" height="295" key="GridCell.Tab.0.center/65.24.1855.1056@65.24.1855.1056" timestamp="1578923155035" />
-    <state width="1832" height="439" key="GridCell.Tab.0.center/65.24.1855.1176@65.24.1855.1176" timestamp="1579066509419" />
-    <state width="1832" height="439" key="GridCell.Tab.0.left" timestamp="1579066509419">
+    <state width="1832" height="439" key="GridCell.Tab.0.center/65.24.1855.1176@65.24.1855.1176" timestamp="1579066595020" />
+    <state width="1832" height="439" key="GridCell.Tab.0.left" timestamp="1579066595020">
       <screen x="65" y="24" width="1855" height="1176" />
     </state>
     <state width="1832" height="295" key="GridCell.Tab.0.left/65.24.1855.1056@65.24.1855.1056" timestamp="1578923155035" />
-    <state width="1832" height="439" key="GridCell.Tab.0.left/65.24.1855.1176@65.24.1855.1176" timestamp="1579066509419" />
-    <state width="1832" height="439" key="GridCell.Tab.0.right" timestamp="1579066509419">
+    <state width="1832" height="439" key="GridCell.Tab.0.left/65.24.1855.1176@65.24.1855.1176" timestamp="1579066595020" />
+    <state width="1832" height="439" key="GridCell.Tab.0.right" timestamp="1579066595021">
       <screen x="65" y="24" width="1855" height="1176" />
     </state>
     <state width="1832" height="295" key="GridCell.Tab.0.right/65.24.1855.1056@65.24.1855.1056" timestamp="1578923155035" />
-    <state width="1832" height="439" key="GridCell.Tab.0.right/65.24.1855.1176@65.24.1855.1176" timestamp="1579066509419" />
+    <state width="1832" height="439" key="GridCell.Tab.0.right/65.24.1855.1176@65.24.1855.1176" timestamp="1579066595021" />
     <state width="1832" height="413" key="GridCell.Tab.1.bottom" timestamp="1578801756604">
       <screen x="65" y="24" width="1855" height="1176" />
     </state>
@@ -323,7 +333,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/GANs.py</url>
-          <line>164</line>
+          <line>171</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
