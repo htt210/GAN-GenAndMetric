@@ -76,7 +76,34 @@ class MNISTDataset:
             datasets.MNIST('~/github/data/mnist', train=train, download=True,
                            transform=transforms.Compose([
                                transforms.ToTensor(),
-                               transforms.Normalize((0.1307,), (0.3081,))
+                               transforms.Normalize((0.5,), (0.5,))
+                           ])),
+            batch_size=1, shuffle=True)
+
+        self.data = []
+        for i, (x, y) in enumerate(self.train_loader):
+            self.data.append(x.view(1, -1))
+        self.loc = 0
+        self.n_samples = len(self.data)
+
+    def next_batch(self, batch_size, device):
+        if self.loc + batch_size > self.n_samples:
+            random.shuffle(self.data)
+            self.loc = 0
+
+        batch = self.data[self.loc: self.loc + batch_size]
+        self.loc += batch_size
+        batch = torch.cat(batch, 0)
+        return batch.to(device)
+
+
+class FashionMNISTDataset:
+    def __init__(self, train=True):
+        self.train_loader = torch.utils.data.DataLoader(
+            datasets.MNIST('~/github/data/fashionmnist', train=train, download=True,
+                           transform=transforms.Compose([
+                               transforms.ToTensor(),
+                               transforms.Normalize((0.5,), (0.5,))
                            ])),
             batch_size=1, shuffle=True)
 
@@ -150,7 +177,7 @@ class CIFAR10Dataset:
         return batch.to(device)
 
 
-class FashionMNISTDataset:
+class FashionMNISTImageDataset:
     def __init__(self, train=True, img_size=32):
         dataloader = torch.utils.data.DataLoader(datasets.FashionMNIST(root='~/github/data/fashionmnist/', download=True,
                                                                        transform=transforms.Compose([
@@ -220,8 +247,10 @@ def load_dataset(dataset, args, train=True):
         return MNISTDataset(train=train)
     elif dataset == 'mnistImage':
         return MNISTImageDataset(train=train, img_size=args.image_size)
-    elif dataset == 'fashionMNIST':
-        return FashionMNISTDataset(train=train, img_size=args.image_size)
+    elif dataset == 'fashionmnist':
+        return FashionMNISTDataset(train=train)
+    elif dataset == 'fashionmnistImage':
+        return FashionMNISTImageDataset(train=train, img_size=args.image_size)
     elif dataset == 'cifar10':
         return CIFAR10Dataset(train=train, img_size=args.image_size)
     elif dataset == 'celeba':

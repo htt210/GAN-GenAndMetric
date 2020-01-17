@@ -2,11 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9465497e-818e-47ba-985b-46312f5b51df" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/runMDL0GPFashion.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets.py" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runMDL0GP.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runMDL0GP.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/runMDL0GP500k.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runMDL0GP500k.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runMDLR1.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runMDLR1.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/runMDLR1500k.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runMDLR1500k.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runMDLWGAN0GP.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runMDLWGAN0GP.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/runMDLWGAN0GP500k.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runMDLWGAN0GP500k.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runMDLWGANGP.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runMDLWGANGP.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/runMDLWGANGP500k.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runMDLWGANGP500k.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wassdistance/MNIST_Wasserstein.py" beforeDir="false" afterPath="$PROJECT_DIR$/wassdistance/MNIST_Wasserstein.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wassdistance/layers.py" beforeDir="false" afterPath="$PROJECT_DIR$/wassdistance/layers.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,12 +47,12 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/catastrophic" />
       <recent name="$PROJECT_DIR$/wassdistance" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="RunManager" selected="Python.MainMDLMLP">
@@ -328,13 +336,8 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/GANs.py</url>
-          <line>171</line>
+          <line>272</line>
           <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/MDL.py</url>
-          <line>68</line>
-          <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
