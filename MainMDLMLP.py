@@ -90,7 +90,7 @@ if __name__ == '__main__':
         if k != 'loss' and k != 'arch' and k != 'dataset' and k != 'device' \
                 and k != 'log_interval' and 'show' not in str(k) and 'save' not in str(k) \
                 and 'nrow' not in k and 'ncol' not in k \
-                and k != 'classifier':
+                and k != 'classifier' and k != 'root':
             prefix += k[0] + k[-1] + str(v) + '-'
 
     if not os.path.exists(prefix):
