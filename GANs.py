@@ -12,6 +12,7 @@ import MDL
 import Sinkhorn
 import pickle as pkl
 from Classifier import *
+import model_resnet
 
 
 def cal_grad_pen(G: Generator, D: Discriminator, real_batch, fake_batch, args):
@@ -45,11 +46,25 @@ def GAN(G: Generator, D: Discriminator, args):
 
     optim_d = None
     optim_g = None
+    scheduler_d = None
+    scheduler_g = None
     criterion = nn.BCELoss()
     if args.optimizer == 'adam':
-        optim_g = optim.Adam(lr=args.lrg, params=G.parameters(), betas=(args.beta1, args.beta2))
-        optim_d = optim.Adam(lr=args.lrd, params=D.parameters(), betas=(args.beta1, args.beta2))
+        if isinstance(G, model_resnet.ResNetGenerator):
+            # copied from https://github.com/christiancosgrove/pytorch-spectral-normalization-gan
+            # because the spectral normalization module creates parameters that don't require gradients (u and v), we don't want to
+            # optimize these using sgd. We only let the optimizer operate on parameters that _do_ require gradients
+            # TODO: replace Parameters with buffers, which aren't returned from .parameters() method.
+            optim_d = optim.Adam(filter(lambda p: p.requires_grad, D.parameters()), lr=args.lr, betas=(0.0, 0.9))
+            optim_g = optim.Adam(G.parameters(), lr=args.lr, betas=(0.0, 0.9))
+            # use an exponentially decaying learning rate
+            scheduler_d = optim.lr_scheduler.ExponentialLR(optim_d, gamma=args.lr_decay)
+            scheduler_g = optim.lr_scheduler.ExponentialLR(optim_g, gamma=args.lr_decay)
+        else:
+            optim_g = optim.Adam(lr=args.lrg, params=G.parameters(), betas=(args.beta1, args.beta2))
+            optim_d = optim.Adam(lr=args.lrd, params=D.parameters(), betas=(args.beta1, args.beta2))
     elif args.optimizer == 'sgd':
+        # we should never train ResNet with SGD so save some line of codes
         optim_g = optim.SGD(lr=args.lrg, params=G.parameters(), momentum=args.momentum)
         optim_d = optim.SGD(lr=args.lrd, params=D.parameters(), momentum=args.momentum)
     else:
@@ -112,7 +127,7 @@ def GAN(G: Generator, D: Discriminator, args):
         # logging
         if it % args.log_interval == 0:
             its.append(it)
-            print('Loggin Iteration %d' % it)
+            print('Logging Iteration %d' % it)
 
             if args.show_grad:
                 disp_grad(G, D, noise_data, real_data, criterion, it, args)
@@ -154,7 +169,6 @@ def GAN(G: Generator, D: Discriminator, args):
                     except Exception as e:
                         print('Cannot load classifier\n', e)
                 print('Computing MDL')
-                print('Fake data path length')
                 # compute fake data path length
                 dists_list = []
                 start_labels_list = []
@@ -180,10 +194,8 @@ def GAN(G: Generator, D: Discriminator, args):
                 with open(args.prefix + '/class_len.txt', 'a') as clf:
                     clf.write('It_%06d_%f\n' % (it, dist_mean))
                     clf.write(str(class_len) + '\n')
+                print('Fake data path length', dist_mean)
                 disp_mat(len_mat, args.prefix + '/len_mat_%06d.png' % it)
-                # plt.figure()
-                # plt.imshow(len_mat)
-                # plt.show(5)
 
                 print('Sinkhorn distance')
                 shdist, shP, shC = Sinkhorn.point_cloud_dist_g(G=G, noise_data=noise_data, real_data=real_data,
@@ -235,13 +247,13 @@ def GAN(G: Generator, D: Discriminator, args):
             if args.loss == 'gan':
                 loss_real = criterion(pred_real, ones) * args.real_weight
                 loss_fake = criterion(pred_fake, zeros) * args.fake_weight
-                loss = loss_real + loss_fake + grad_pen
+                loss_d = loss_real + loss_fake + grad_pen
             elif args.loss == 'wgan':
-                loss = pred_fake.mean() - pred_real.mean() + grad_pen
+                loss_d = pred_fake.mean() - pred_real.mean() + grad_pen
             else:
                 raise NotImplementedError(args.loss + ' loss is not implemented.')
             # update params
-            loss.backward()
+            loss_d.backward()
             optim_d.step()
 
         # train G for ng iterations
@@ -258,6 +270,12 @@ def GAN(G: Generator, D: Discriminator, args):
                 raise NotImplementedError(args.loss + ' loss is not implemented.')  # impossible to reach this but hey!
             loss_g.backward()
             optim_g.step()
+
+        # decay learning rate
+        if it % args.lr_decay_interval == args.lr_decay_interval - 1 and scheduler_g is not None:
+            scheduler_d.step()
+            scheduler_g.step()
+    ####################################################################################################################
 
     # plot scores of fixed_fakes
     nimg = args.nrow * args.ncol

@@ -217,28 +217,12 @@ class CelebADataset:
                                                       num_workers=4, drop_last=True)
         self.iter = iter(self.dataloader)
 
-        # self.data = []
-        # for i, x in enumerate(dataloader):
-        #     if i % 1000 == 0:
-        #         print(i, len(x))
-        #     self.data.append(x)
-        # self.loc = 0
-        # self.n_samples = len(self.data)
-
     def next_batch(self, batch_size, device):
-        # if self.loc + batch_size > self.n_samples:
-        #     random.shuffle(self.data)
-        #     self.loc = 0
-        #
-        # batch = self.data[self.loc: self.loc + batch_size]
-        # self.loc += batch_size
-        # batch = torch.cat(batch, 0)
         batch = next(self.iter, None)
         if batch is None:
             self.iter = iter(self.dataloader)
             batch = next(self.iter, None)
 
-        # print(len(batch), batch.size())
         return batch[0].to(device)
 
 
