@@ -8,7 +8,8 @@ true data.
 Unlike discriminative models, in generative models, true data is a distribution. 
 We define the discrepancy as the Wasserstein-2 distance between the two distributions. The two distributions are 
 approximated using two empirical distributions, i.e. two uniform distributions over samples from these distributions. 
-W2 is (approximately) computed using a Sinkhorn solver.
+W2 is (approximately) computed using a Sinkhorn solver. The distance is computed in the data space for simple datasets 
+like MNIST and in the feature space (perceptual distance) for more complicated datasets like CIFAR10 and ImageNet.
 
 The complexity of a model is defined as the complexity of the model's distribution. That is in turn defined as the
  expected length of the path connecting two random samples.  
