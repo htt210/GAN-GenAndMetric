@@ -52,7 +52,7 @@ def p_distance(x, y, p):
 
 
 def data_path_length(z_start, z_end, interpolation_method, n_steps, p,
-                     G: Generator, D: Discriminator, classifier: Classifier):
+                     G: Generator, D: Discriminator, C: Classifier):
     z_list = interpolation_method(z_start, z_end, n_steps)
     dists = torch.zeros(z_start.size(0)).to(z_start.device)
     with torch.no_grad():
@@ -65,12 +65,66 @@ def data_path_length(z_start, z_end, interpolation_method, n_steps, p,
         # required for inter class distance
         start_labels = None
         end_labels = None
-        if classifier is not None:
-            start_labels = classifier(G(z_start)).argmax(dim=1, keepdim=True)
-            end_labels = classifier(G(z_end)).argmax(dim=1, keepdim=True)
+        if C is not None:
+            start_labels = C(G(z_start)).argmax(dim=1, keepdim=True)
+            end_labels = C(G(z_end)).argmax(dim=1, keepdim=True)
 
     # print(dists.size(), start_labels.size())
     return dists, start_labels, end_labels
+
+
+# def get_jacobian(net, x, noutputs):
+#     x = x.squeeze()
+#     n = x.size()[0]
+#     x = x.repeat(noutputs, 1)
+#     x.requires_grad_(True)
+#     y = net(x)
+#     y.backward(torch.eye(noutputs))
+#     return x.grad.data
+
+
+def max_singular_val(z_start, z_end, interpolation_method, n_steps, p,
+                     G: Generator, D: Discriminator, C: Classifier):
+    """
+    If we just sample z and feed it through the Generator, compute the Jacobian at the generated
+    datapoint then it will not be enough: if the generator remember the training data, the Jacobian
+    at any generated datapoint will be close to 0. We measure the maximum singular value of the
+    Jacobian w.r.t. datapoints on the path connecting a pair of fake samples.
+    The Jacobian and its SVD are too expensive to compute, we use the fast approximation:
+    :math:`max_singular_val = max(|| x1 - x2 || / || z1 - z2 ||`
+    :param z_start:
+    :param z_end:
+    :param interpolation_method:
+    :param n_steps:
+    :param p:
+    :param G:
+    :param D:
+    :param C
+    :return: maximum singular value of the Jacobian w.r.t. points on the path
+    """
+    z_list = interpolation_method(z_start, z_end, n_steps)
+    max_z = z_list[0]
+    max_x = None
+    max_ratio = torch.zeros(z_start.size(0)).to(z_start.device)
+    # max_singular = []
+    with torch.no_grad():
+        xp = G(z_start)
+        max_x = xp
+        for i in range(1, n_steps + 1):
+            xi = G(z_list[i])
+
+            # compute the maximum ratio
+            ratio_i = p_distance(xp, xi, p=p) / p_distance(z_list[i], z_list[i - 1], p=p)
+            compare = ratio_i > max_ratio
+            max_ratio[compare] = ratio_i[compare]
+            max_z[compare] = z_list[i - 1][compare]
+            max_x[compare] = xp[compare]
+            xp = xi
+    # # compute the singular values
+    # if not fast:
+    #     for z, x in (max_z.split(1), max_x.split(1)):
+    #         jacobian = get_jacobian(G, z)
+    return max_ratio
 
 
 def class_pair_path_length(dists, start_labels, end_labels, nclasses):

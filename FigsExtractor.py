@@ -44,17 +44,17 @@ def copy_file(file_path, prefixes, suffixes, dest):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('-file', default='/home/thanhtung/Dropbox/CatastrophicGAN/AISTATS2020-Tung/aistats_arxiv.tex',
+    parser.add_argument('-file', default='/home/thanhtung/Dropbox/CatastrophicGAN/AISTATS2020-Tung/ijcnn.tex',
                         help='input file')
     parser.add_argument('-prefixes',
-                        default='/home/thanhtung/github/figs/aistats2020-figs/figs/ /home/thanhtung/Dropbox/CatastrophicGAN/',
+                        default='/home/thanhtung/github/figs/aistats2020-figs/figs/ /home/thanhtung/Dropbox/CatastrophicGAN/ /media/thanhtung/DATA2/github/figs/',
                         help='prefixes')
     parser.add_argument('-suffixes', default='.pdf .png')
-    parser.add_argument('-dest', default='figs/', help='destination folder')
+    parser.add_argument('-dest', default='/home/thanhtung/Dropbox/CatastrophicGAN/AISTATS2020-Tung/figs/', help='destination folder')
 
     args = parser.parse_args()
 
-    args.prefixes = args.prefixes.split()
+    args.prefixes = args.prefixes.split() + ['']
     print(args.prefixes)
     args.suffixes = args.suffixes.split() + ['']
 

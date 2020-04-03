@@ -268,7 +268,7 @@ def disp_extrema(scores, outfile, noise_range=5, noise_step=0.1, nrow=8, ncol=8)
     plt.close(fig)
 
 
-def disp_mdl(path_length, wass_dist, it, outfile):
+def disp_mdl(path_length, wass_dist, it, outfile, xlabel, ylabel):
     print(path_length)
     print(wass_dist)
     print(it)
@@ -289,8 +289,8 @@ def disp_mdl(path_length, wass_dist, it, outfile):
     mdl_ax.plot(path_length, wass_dist, zorder=1)
     sc.set_array(np.array(it))
     plt.colorbar(sc)
-    plt.xlabel('Path length')
-    plt.ylabel('Wasserstein distance')
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
     # plt.show()
     plt.savefig(outfile, bbox_inches='tight')
     plt.close(mdl_fig)

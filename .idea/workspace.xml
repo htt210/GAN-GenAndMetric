@@ -2,13 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9465497e-818e-47ba-985b-46312f5b51df" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/FigConverter.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model_resnet.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spectral_normalization.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spectral_normalization_nondiff.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/GanBeyondCode.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/GanBeyondCode.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets.py" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FigsExtractor.py" beforeDir="false" afterPath="$PROJECT_DIR$/FigsExtractor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GANs.py" beforeDir="false" afterPath="$PROJECT_DIR$/GANs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logger.py" beforeDir="false" afterPath="$PROJECT_DIR$/Logger.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MDL.py" beforeDir="false" afterPath="$PROJECT_DIR$/MDL.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MainMDLResNet.py" beforeDir="false" afterPath="$PROJECT_DIR$/MainMDLResNet.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model_resnet.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runMDL0GPFashion.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runMDL0GPFashion.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spectral_normalization.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/resnet.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/resnet2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/resnet3.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/resnet4.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/wassdistance/MNIST_Wasserstein.py" beforeDir="false" afterPath="$PROJECT_DIR$/wassdistance/MNIST_Wasserstein.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wassdistance/layers.py" beforeDir="false" afterPath="$PROJECT_DIR$/wassdistance/layers.py" afterDir="false" />
     </list>
@@ -43,12 +53,12 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/catastrophic" />
       <recent name="$PROJECT_DIR$/wassdistance" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="RunManager" selected="Python.MainMDLMLP">
@@ -73,28 +83,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="MNIST_Wasserstein" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="GanBeyondCode" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/wassdistance" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/wassdistance/MNIST_Wasserstein.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="MainMDLCNN" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="FigConverter" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="GanBeyondCode" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -106,7 +95,49 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/MainMDLCNN.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/FigConverter.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="FigsExtractor" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="GanBeyondCode" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/FigsExtractor.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="GANs" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="GanBeyondCode" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/GANs.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -136,41 +167,20 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="MainMuInGenToy" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="GanBeyondCode" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/catastrophic/MuInToy.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <list>
       <item itemvalue="Python.Classifier" />
-      <item itemvalue="Python.MNIST_Wasserstein" />
-      <item itemvalue="Python.MainMDLCNN" />
+      <item itemvalue="Python.FigConverter" />
+      <item itemvalue="Python.FigsExtractor" />
       <item itemvalue="Python.MainMDLMLP" />
-      <item itemvalue="Python.MainMuInGenToy" />
+      <item itemvalue="Python.GANs" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.MainMDLMLP" />
+        <item itemvalue="Python.GANs" />
+        <item itemvalue="Python.FigConverter" />
+        <item itemvalue="Python.FigsExtractor" />
         <item itemvalue="Python.Classifier" />
-        <item itemvalue="Python.MNIST_Wasserstein" />
-        <item itemvalue="Python.MainMDLCNN" />
-        <item itemvalue="Python.MainMuInGenToy" />
       </list>
     </recent_temporary>
   </component>
@@ -255,34 +265,39 @@
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
     <state x="670" y="145" width="642" height="785" key="#MainMDLMLP/65.24.1855.1056@65.24.1855.1056" timestamp="1578912161072" />
-    <state x="257" y="0" key="CommitChangelistDialog2" timestamp="1575949823799">
-      <screen x="0" y="0" width="1200" height="760" />
-    </state>
-    <state x="257" y="0" key="CommitChangelistDialog2/0.0.1200.760@0.0.1200.760" timestamp="1575949823799" />
-    <state x="779" y="297" width="424" height="482" key="FileChooserDialogImpl" timestamp="1579501594488">
+    <state x="457" y="197" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1584762846515">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state x="779" y="297" width="424" height="482" key="FileChooserDialogImpl/65.24.1855.1056@65.24.1855.1056" timestamp="1579501594488" />
+    <state x="457" y="197" key="#com.intellij.execution.impl.EditConfigurationsDialog/65.24.1855.1056@65.24.1855.1056" timestamp="1584762846515" />
+    <state x="462" y="514" width="379" height="866" key="FileChooserDialogImpl" timestamp="1585891355584">
+      <screen x="0" y="24" width="1200" height="1896" />
+    </state>
+    <state x="462" y="514" width="379" height="866" key="FileChooserDialogImpl/0.24.1200.1896@0.24.1200.1896" timestamp="1585891355584" />
+    <state x="779" y="297" width="424" height="482" key="FileChooserDialogImpl/65.24.1855.1056@65.24.1855.1056" timestamp="1584762110598" />
     <state x="779" y="328" key="FileChooserDialogImpl/65.24.1855.1176@65.24.1855.1176" timestamp="1579067813754" />
-    <state width="1832" height="439" key="GridCell.Tab.0.bottom" timestamp="1579066595021">
-      <screen x="65" y="24" width="1855" height="1176" />
+    <state width="1175" height="426" key="GridCell.Tab.0.bottom" timestamp="1585891991591">
+      <screen x="0" y="24" width="1200" height="1896" />
     </state>
-    <state width="1832" height="295" key="GridCell.Tab.0.bottom/65.24.1855.1056@65.24.1855.1056" timestamp="1578923155035" />
+    <state width="1175" height="426" key="GridCell.Tab.0.bottom/0.24.1200.1896@0.24.1200.1896" timestamp="1585891991591" />
+    <state width="1832" height="295" key="GridCell.Tab.0.bottom/65.24.1855.1056@65.24.1855.1056" timestamp="1584764511913" />
     <state width="1832" height="439" key="GridCell.Tab.0.bottom/65.24.1855.1176@65.24.1855.1176" timestamp="1579066595021" />
-    <state width="1832" height="439" key="GridCell.Tab.0.center" timestamp="1579066595020">
-      <screen x="65" y="24" width="1855" height="1176" />
+    <state width="1175" height="426" key="GridCell.Tab.0.center" timestamp="1585891991590">
+      <screen x="0" y="24" width="1200" height="1896" />
     </state>
-    <state width="1832" height="295" key="GridCell.Tab.0.center/65.24.1855.1056@65.24.1855.1056" timestamp="1578923155035" />
+    <state width="1175" height="426" key="GridCell.Tab.0.center/0.24.1200.1896@0.24.1200.1896" timestamp="1585891991590" />
+    <state width="1832" height="295" key="GridCell.Tab.0.center/65.24.1855.1056@65.24.1855.1056" timestamp="1584764511912" />
     <state width="1832" height="439" key="GridCell.Tab.0.center/65.24.1855.1176@65.24.1855.1176" timestamp="1579066595020" />
-    <state width="1832" height="439" key="GridCell.Tab.0.left" timestamp="1579066595020">
-      <screen x="65" y="24" width="1855" height="1176" />
+    <state width="1175" height="426" key="GridCell.Tab.0.left" timestamp="1585891991589">
+      <screen x="0" y="24" width="1200" height="1896" />
     </state>
-    <state width="1832" height="295" key="GridCell.Tab.0.left/65.24.1855.1056@65.24.1855.1056" timestamp="1578923155035" />
+    <state width="1175" height="426" key="GridCell.Tab.0.left/0.24.1200.1896@0.24.1200.1896" timestamp="1585891991589" />
+    <state width="1832" height="295" key="GridCell.Tab.0.left/65.24.1855.1056@65.24.1855.1056" timestamp="1584764511912" />
     <state width="1832" height="439" key="GridCell.Tab.0.left/65.24.1855.1176@65.24.1855.1176" timestamp="1579066595020" />
-    <state width="1832" height="439" key="GridCell.Tab.0.right" timestamp="1579066595021">
-      <screen x="65" y="24" width="1855" height="1176" />
+    <state width="1175" height="426" key="GridCell.Tab.0.right" timestamp="1585891991591">
+      <screen x="0" y="24" width="1200" height="1896" />
     </state>
-    <state width="1832" height="295" key="GridCell.Tab.0.right/65.24.1855.1056@65.24.1855.1056" timestamp="1578923155035" />
+    <state width="1175" height="426" key="GridCell.Tab.0.right/0.24.1200.1896@0.24.1200.1896" timestamp="1585891991591" />
+    <state width="1832" height="295" key="GridCell.Tab.0.right/65.24.1855.1056@65.24.1855.1056" timestamp="1584764511912" />
     <state width="1832" height="439" key="GridCell.Tab.0.right/65.24.1855.1176@65.24.1855.1176" timestamp="1579066595021" />
     <state width="1832" height="413" key="GridCell.Tab.1.bottom" timestamp="1578801756604">
       <screen x="65" y="24" width="1855" height="1176" />
@@ -304,16 +319,11 @@
     </state>
     <state width="1832" height="364" key="GridCell.Tab.1.right/65.24.1855.1056@65.24.1855.1056" timestamp="1578634579187" />
     <state width="1832" height="413" key="GridCell.Tab.1.right/65.24.1855.1176@65.24.1855.1176" timestamp="1578801756604" />
-    <state x="223" y="56" key="SettingsEditor" timestamp="1579501474151">
-      <screen x="65" y="24" width="1855" height="1056" />
+    <state x="223" y="60" key="SettingsEditor" timestamp="1585718038473">
+      <screen x="65" y="24" width="1855" height="1176" />
     </state>
-    <state x="102" y="23" key="SettingsEditor/0.0.1200.760@0.0.1200.760" timestamp="1575950497632" />
-    <state x="223" y="56" key="SettingsEditor/65.24.1855.1056@65.24.1855.1056" timestamp="1579501474151" />
-    <state x="223" y="60" key="SettingsEditor/65.24.1855.1176@65.24.1855.1176" timestamp="1578968951988" />
-    <state x="193" y="113" key="Vcs.Push.Dialog.v2" timestamp="1575949831431">
-      <screen x="0" y="0" width="1200" height="760" />
-    </state>
-    <state x="193" y="113" key="Vcs.Push.Dialog.v2/0.0.1200.760@0.0.1200.760" timestamp="1575949831431" />
+    <state x="223" y="56" key="SettingsEditor/65.24.1855.1056@65.24.1855.1056" timestamp="1585281670546" />
+    <state x="223" y="60" key="SettingsEditor/65.24.1855.1176@65.24.1855.1176" timestamp="1585718038473" />
     <state x="725" y="270" width="532" height="656" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1578890038678">
       <screen x="65" y="24" width="1855" height="1176" />
     </state>
@@ -326,16 +336,5 @@
       <screen x="65" y="24" width="1855" height="1176" />
     </state>
     <state x="655" y="266" width="672" height="678" key="search.everywhere.popup/65.24.1855.1176@65.24.1855.1176" timestamp="1578912670576" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/GANs.py</url>
-          <line>272</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

@@ -17,15 +17,13 @@ from GANs import *
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     # architecture and hyper parameters
-    parser.add_argument('-root', type=str, default='gangentest', help='root folder for storing outputs')
+    parser.add_argument('-root', type=str, default='gangen', help='root folder for storing outputs')
     parser.add_argument('-loss', type=str, default='gan', help='loss function: gan | wgan')
     parser.add_argument('-arch', type=str, default='resnet', help='architecture: mlp | dcgan')
     parser.add_argument('-dataset', type=str, default='mnist',
                         help='dataset: fashionmnistImage | celeba | cifar10 | mnistImage')
-    # parser.add_argument('-nhidden', type=int, default=512, help='number of hidden unit in MLP')
     parser.add_argument('-real_weight', type=float, default=1, help='weight of a real example')
     parser.add_argument('-fake_weight', type=float, default=1, help='weight of a fake example')
-    # parser.add_argument('-nlayer', type=int, default=3, help='number of layer in MLP')
     parser.add_argument('-ndf', type=int, default=64, help='number of filters in D')
     parser.add_argument('-ngf', type=int, default=64, help='number of filters in G')
     parser.add_argument('-lrd', type=float, default=2e-4, help='learning rate for D')
@@ -37,10 +35,8 @@ if __name__ == '__main__':
     parser.add_argument('-gp_inter', type=float, default=None,
                         help='grad pen interpolation: 0 | 1 | None <=> on fake | on real | random')
     parser.add_argument('-optimizer', type=str, default='adam', help='optimizer: adam | sgd')
-    # parser.add_argument('-momentum', type=float, default=0.0, help='momentum for sgd')
     parser.add_argument('-beta1', type=float, default=0.0, help='beta1 for adam')
     parser.add_argument('-beta2', type=float, default=0.9, help='beta2 for adam')
-    # parser.add_argument('-drop_centers', type=str, default=None, help='list of centers to drop, e.g. 1,10,3')
 
     # noise options
     parser.add_argument('-noise_dist', type=str, default='Gaussian', help='noise distribution: Gaussian')
@@ -51,8 +47,6 @@ if __name__ == '__main__':
     parser.add_argument('-batch_size', type=int, default=64, help='batch size')
     parser.add_argument('-lr_decay', type=float, default=0.99, help='lr decay rate')
     parser.add_argument('-lr_decay_interval', type=int, default=1000, help='decay lr after N iterations')
-    # parser.add_argument('-stddev', type=float, default=0.02, help='stddev of Gaussians in toy datasets')
-    # parser.add_argument('-scale', type=float, default=1, help='scale of the toy datasets')
     parser.add_argument('-device', type=str, default='cuda:0', help='device: cuda:x | cpu')
 
     # log options

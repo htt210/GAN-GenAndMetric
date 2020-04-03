@@ -88,7 +88,7 @@ def GAN(G: Generator, D: Discriminator, args):
         noise_direction = torch.rand_like(fixed_real[0], device=args.device) if args.noise_direct else None
         torchvision.utils.save_image(
             fixed_real.view((args.nrow * args.ncol, args.nc, args.image_size, args.image_size)),
-            args.prefix + '/real.png', nrow=args.nrow, normalize=args.nc != 1)
+            args.prefix + '/real.jpg', nrow=args.nrow, normalize=args.nc != 1)
         noise_range = torch.arange(-args.noise_range, args.noise_range, step=args.noise_step,
                                    device='cpu').view(-1).numpy()
         for i in range(len(noise_range)):
@@ -97,7 +97,7 @@ def GAN(G: Generator, D: Discriminator, args):
             real_noise = fixed_real + noise_level * noise_direction / noise_direction.norm()
             torchvision.utils.save_image(
                 real_noise.view((args.nrow * args.ncol, args.nc, args.image_size, args.image_size)),
-                args.prefix + '/real_noise_%06d.png' % i, nrow=args.nrow, normalize=args.nc != 1)
+                args.prefix + '/real_noise_%06d.jpg' % i, nrow=args.nrow, normalize=args.nc != 1)
 
     gen_time = [5000, 10000, 20000, -1]
     ffs_idx = [[] for _ in range(len(gen_time))]
@@ -107,6 +107,7 @@ def GAN(G: Generator, D: Discriminator, args):
     wass_dists = []
     wass_disttes = []
     path_lengths = []
+    average_singulars = []
     its = []
     classifier = None
     ####################################################################################################################
@@ -120,7 +121,7 @@ def GAN(G: Generator, D: Discriminator, args):
             fixed_fakes.append(G(fixed_noise).data)
             torchvision.utils.save_image(
                 fixed_fakes[-1].view((args.nrow * args.ncol, args.nc, args.image_size, args.image_size)),
-                args.prefix + '/fixed_fake_%06d.png' % it, nrow=1, normalize=args.nc != 1)
+                args.prefix + '/fixed_fake_%06d.jpg' % it, nrow=1, normalize=args.nc != 1)
             fixed_fakes_scores.append([])
 
         ################################################################################################################
@@ -152,7 +153,7 @@ def GAN(G: Generator, D: Discriminator, args):
                         fixed_fake = G(fixed_noise)
                         torchvision.utils.save_image(
                             fixed_fake.view((args.nrow * args.ncol, args.nc, args.image_size, args.image_size)),
-                            args.prefix + '/fake_%06d.png' % it, nrow=args.nrow, normalize=args.nc != 1)
+                            args.prefix + '/fake_%06d.jpg' % it, nrow=args.nrow, normalize=args.nc != 1)
                         _, _, scores = compute_extrema(D, fixed_fake, noise_direction, args.noise_range,
                                                        args.noise_step)
                         disp_extrema(scores, args.prefix + '/extrema_fake_%06d.pdf' % it,
@@ -171,6 +172,7 @@ def GAN(G: Generator, D: Discriminator, args):
                 print('Computing MDL')
                 # compute fake data path length
                 dists_list = []
+                singular_list = []
                 start_labels_list = []
                 end_labels_list = []
                 for i in range(args.nbatch):
@@ -180,22 +182,33 @@ def GAN(G: Generator, D: Discriminator, args):
                     dists, start_labels, end_labels = MDL.data_path_length(z_start=z_starti, z_end=z_endi,
                                                                            interpolation_method=MDL.slerp,
                                                                            n_steps=args.n_steps, p=args.p, G=G, D=D,
-                                                                           classifier=classifier)
+                                                                           C=classifier)
+                    singulars = MDL.max_singular_val(z_start=z_starti, z_end=z_endi, interpolation_method=MDL.slerp,
+                                                     n_steps=args.n_steps, p=args.p, G=G, D=D, C=classifier)
+
                     dists_list.append(dists)
+                    singular_list.append(singulars)
                     start_labels_list.append(start_labels)
                     end_labels_list.append(end_labels)
+
                 dists = torch.cat(dists_list, dim=0)
                 dist_mean = dists.mean().item()
                 path_lengths.append(dist_mean)
                 start_labels = torch.cat(start_labels_list, dim=0)
                 end_labels = torch.cat(end_labels_list, dim=0)
+
+                singulars = torch.cat(singular_list, dim=0)
+                singular_mean = singulars.mean().item()
+                average_singulars.append(singular_mean)
+                print('Fake data singular', singular_mean)
+
                 class_len, len_mat = MDL.class_pair_path_length(dists=dists, start_labels=start_labels,
                                                                 end_labels=end_labels, nclasses=classifier.nclasses())
                 with open(args.prefix + '/class_len.txt', 'a') as clf:
                     clf.write('It_%06d_%f\n' % (it, dist_mean))
                     clf.write(str(class_len) + '\n')
                 print('Fake data path length', dist_mean)
-                disp_mat(len_mat, args.prefix + '/len_mat_%06d.png' % it)
+                disp_mat(len_mat, args.prefix + '/len_mat_%06d.jpg' % it)
 
                 print('Sinkhorn distance')
                 shdist, shP, shC = Sinkhorn.point_cloud_dist_g(G=G, noise_data=noise_data, real_data=real_data,
@@ -215,12 +228,17 @@ def GAN(G: Generator, D: Discriminator, args):
                 with open(args.prefix + '/sinkhorn_dist.txt', 'a') as shf:
                     shf.write('It_%06d_%f\n' % (it, shdist))
                 disp_mdl(path_length=path_lengths, wass_dist=wass_dists, it=its,
-                         outfile=args.prefix + '/mdl_%06d.pdf' % it)
+                         outfile=args.prefix + '/pathlen_%06d.pdf' % it,
+                         xlabel='Path length', ylabel='Wasserstein distance')
                 disp_mdl(path_length=path_lengths, wass_dist=wass_disttes, it=its,
-                         outfile=args.prefix + '/mdl_test_%06d.pdf' % it)
+                         outfile=args.prefix + '/pathlen_test_%06d.pdf' % it,
+                         xlabel='Path length', ylabel='Wasserstein distance')
+                disp_mdl(path_length=average_singulars, wass_dist=wass_dists, it=its,
+                         outfile=args.prefix + '/singular_%06d.pdf' % it,
+                         xlabel='Singular value', ylabel='Wasserstein distance')
                 with open(args.prefix + '/mdl.txt', 'w') as mdlf:
-                    for i, w, wte, d in zip(its, wass_dists, wass_disttes, path_lengths):
-                        mdlf.write('%d, %f, %f, %f\n' % (i, w, wte, d))
+                    for i, w, wte, d, s in zip(its, wass_dists, wass_disttes, path_lengths, average_singulars):
+                        mdlf.write('%d, %f, %f, %f, %f\n' % (it, w, wte, d, s))
 
         if it % args.save_model == args.save_model - 1:
             print('Saving model')
@@ -272,7 +290,7 @@ def GAN(G: Generator, D: Discriminator, args):
             optim_g.step()
 
         # decay learning rate
-        if it % args.lr_decay_interval == args.lr_decay_interval - 1 and scheduler_g is not None:
+        if scheduler_g is not None and it % args.lr_decay_interval == args.lr_decay_interval - 1:
             scheduler_d.step()
             scheduler_g.step()
     ####################################################################################################################
