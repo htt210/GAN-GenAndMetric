@@ -171,8 +171,8 @@
       <item itemvalue="Python.Classifier" />
       <item itemvalue="Python.FigConverter" />
       <item itemvalue="Python.FigsExtractor" />
-      <item itemvalue="Python.MainMDLMLP" />
       <item itemvalue="Python.GANs" />
+      <item itemvalue="Python.MainMDLMLP" />
     </list>
     <recent_temporary>
       <list>
