@@ -2,23 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9465497e-818e-47ba-985b-46312f5b51df" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/FigConverter.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model_resnet.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/spectral_normalization.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/spectral_normalization_nondiff.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/GanBeyondCode.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/GanBeyondCode.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/runMDLMLP0GP.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/runMDLMLPR1.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FigsExtractor.py" beforeDir="false" afterPath="$PROJECT_DIR$/FigsExtractor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GANs.py" beforeDir="false" afterPath="$PROJECT_DIR$/GANs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logger.py" beforeDir="false" afterPath="$PROJECT_DIR$/Logger.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MDL.py" beforeDir="false" afterPath="$PROJECT_DIR$/MDL.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainMDLResNet.py" beforeDir="false" afterPath="$PROJECT_DIR$/MainMDLResNet.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/resnet.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/resnet2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/resnet3.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/resnet4.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/wassdistance/MNIST_Wasserstein.py" beforeDir="false" afterPath="$PROJECT_DIR$/wassdistance/MNIST_Wasserstein.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wassdistance/layers.py" beforeDir="false" afterPath="$PROJECT_DIR$/wassdistance/layers.py" afterDir="false" />
     </list>
@@ -53,12 +39,14 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/old/runfiles" />
+      <recent name="$PROJECT_DIR$/old" />
       <recent name="$PROJECT_DIR$/catastrophic" />
       <recent name="$PROJECT_DIR$/wassdistance" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="RunManager" selected="Python.MainMDLMLP">
@@ -171,8 +159,8 @@
       <item itemvalue="Python.Classifier" />
       <item itemvalue="Python.FigConverter" />
       <item itemvalue="Python.FigsExtractor" />
-      <item itemvalue="Python.GANs" />
       <item itemvalue="Python.MainMDLMLP" />
+      <item itemvalue="Python.GANs" />
     </list>
     <recent_temporary>
       <list>
@@ -332,9 +320,10 @@
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
     <state x="639" y="269" width="707" height="538" key="find.popup/65.24.1855.1056@65.24.1855.1056" timestamp="1578722597056" />
-    <state x="655" y="266" width="672" height="678" key="search.everywhere.popup" timestamp="1578912670576">
-      <screen x="65" y="24" width="1855" height="1176" />
+    <state x="382" y="414" width="435" height="1094" key="search.everywhere.popup" timestamp="1585919350889">
+      <screen x="0" y="24" width="1200" height="1896" />
     </state>
+    <state x="382" y="414" width="435" height="1094" key="search.everywhere.popup/0.24.1200.1896@0.24.1200.1896" timestamp="1585919350889" />
     <state x="655" y="266" width="672" height="678" key="search.everywhere.popup/65.24.1855.1176@65.24.1855.1176" timestamp="1578912670576" />
   </component>
 </project>
