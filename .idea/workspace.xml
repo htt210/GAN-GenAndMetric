@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9465497e-818e-47ba-985b-46312f5b51df" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runMDLMLP0GP.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runMDLMLP0GP.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runMDLMLPR1.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runMDLMLPR1.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/runMDLWGAN1GP.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runMDLWGAN1GP.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wassdistance/MNIST_Wasserstein.py" beforeDir="false" afterPath="$PROJECT_DIR$/wassdistance/MNIST_Wasserstein.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wassdistance/layers.py" beforeDir="false" afterPath="$PROJECT_DIR$/wassdistance/layers.py" afterDir="false" />
@@ -157,8 +160,8 @@
       <item itemvalue="Python.Classifier" />
       <item itemvalue="Python.FigConverter" />
       <item itemvalue="Python.FigsExtractor" />
-      <item itemvalue="Python.MainMDLMLP" />
       <item itemvalue="Python.GANs" />
+      <item itemvalue="Python.MainMDLMLP" />
     </list>
     <recent_temporary>
       <list>
